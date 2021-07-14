@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "yarn run http-server"
+  },
+  "dependencies": {
+    "@polymer/paper-button": "^3.0.1"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
+}
