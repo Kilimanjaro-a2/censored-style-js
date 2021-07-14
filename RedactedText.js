@@ -1,4 +1,4 @@
-class CensoredText extends HTMLElement {
+class RedactedText extends HTMLElement {
     constructor() {
         super()
 
@@ -11,7 +11,6 @@ class CensoredText extends HTMLElement {
         wrapper.appendChild(slot)
 
         const style = document.createElement("style")
-        console.log(style.isConnected)
 
         style.textContent = `
             .redacted {
@@ -21,10 +20,9 @@ class CensoredText extends HTMLElement {
                 margin: 0; 
             }
         `
-
         shadow.appendChild(style)
         shadow.appendChild(wrapper)
     }
 }
 
-customElements.define("c-text", CensoredText)
+customElements.define("r-t", RedactedText)
