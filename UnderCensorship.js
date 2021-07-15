@@ -2,8 +2,7 @@ class UnderCensorship extends HTMLElement {
     _defaultElement = "censored"
     _defaultType = "paint"
     _defaultColor = "black"
-    _defaultReplaceText = "*"
-    _defaultReplaceRepeat = true
+    _defaultReplaceText = ""
 
     constructor() {
         // initialize
@@ -22,7 +21,7 @@ class UnderCensorship extends HTMLElement {
 
         // type
         const typeAttribute = this.getAttribute('type')
-        const typeSet = new Set(["paint", "blur", "replace"])
+        const typeSet = new Set(["paint", "blur", "visible"])
         const censorshipType = typeSet.has(typeAttribute) ? typeAttribute : this._defaultType
 
         // style
@@ -42,24 +41,18 @@ class UnderCensorship extends HTMLElement {
         shadow.appendChild(style)
         shadow.appendChild(wrapper)
 
-        // type: replace
-        if (censorshipType === "replace") {
-            const replaceTextAttribute = this.getAttribute('replace-text')
+        // replace
+        const replaceTextAttribute = this.getAttribute('replace-text')
+        if (replaceTextAttribute != null && replaceTextAttribute != "") {
             const replaceRepeatAttribute = this.getAttribute('replace-repeat')
-            const replaceText = replaceTextAttribute != null && replaceTextAttribute != ""
-                ? replaceTextAttribute
-                : this._defaultReplaceText
             const replaceRepeat = replaceRepeatAttribute == "true" || replaceRepeatAttribute == "True" 
-                ? this._defaultReplaceRepeat
-                : false
-
             const htmlCollections = slot.assignedElements()
                 .map(elm => elm.getElementsByTagName(censorshipElement))
                 .filter(col => col.length > 0)
 
             htmlCollections.forEach(col => {
                 for (let item of col) {
-                    item.innerHTML = this._replace(item.innerHTML, replaceText, replaceRepeat)
+                    item.innerHTML = this._replace(item.innerHTML, replaceTextAttribute, replaceRepeat)
                 }
             })
         }
@@ -79,7 +72,7 @@ class UnderCensorship extends HTMLElement {
                 return `${censorshipElement} {
                     filter: blur(2px);
                 }`
-            case "replace":
+            case "visible":
                 /* FALLTHROUGH */
             default:
                 return `${censorshipElement} {
@@ -92,7 +85,7 @@ class UnderCensorship extends HTMLElement {
         if (str == null || str == "" || replacedText == null || replacedText == "") {
             return ""
         }
-        
+
         let result = replacedText
         if (willRepeat) {
             while(str.length > result.length) {

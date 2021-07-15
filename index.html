@@ -19,19 +19,19 @@ Of course, it can also be used with <c>Vanilla JS</c>.</p>
     <h3>There are many different types of Censorship.</h3>
     <ul>
       <li>
-        <under-censorship type="Paint">
+        <under-censorship type="paint">
           This is the default <censored>black paint style</censored>.
         </under-censorship>
       </li>
 
       <li>
-        <under-censorship type="Paint" color="#808080">
+        <under-censorship type="paint" color="#808080">
           There are also styles that allow you to <censored>change the color</censored>.
         </under-censorship>
       </li>
 
       <li>
-        <under-censorship type="Blur">
+        <under-censorship type="blur">
           This is a <censored>blur style</censored>.
         </under-censorship>
       </li>
@@ -54,7 +54,7 @@ Of course, it can also be used with <c>Vanilla JS</c>.</p>
     <h1>Under<c>Censorship</c>.js</h1>
     <under-censorship
       tag="c"
-      type="replace"
+      type="visible"
       replace-text="*"
       replace-repeat="true"
     >
@@ -62,7 +62,15 @@ Of course, it can also be used with <c>Vanilla JS</c>.</p>
     </under-censorship>
     <under-censorship
       tag="c"
-      type="replace"
+      type="paint"
+      replace-text="*"
+      replace-repeat="true"
+    >
+      <h1>Under<c>Censorship</c>.js</h1>
+    </under-censorship>
+    <under-censorship
+      tag="c"
+      type="visible"
       replace-text="[REDACTED]"
       replace-repeat="true"
     >
@@ -70,7 +78,7 @@ Of course, it can also be used with <c>Vanilla JS</c>.</p>
     </under-censorship>
     <under-censorship
       tag="c"
-      type="replace"
+      type="visible"
       replace-text="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
       replace-repeat="true"
     >
