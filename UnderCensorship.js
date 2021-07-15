@@ -1,11 +1,12 @@
 class UnderCensorship extends HTMLElement {
-    _defaultElement = "censored"
-    _defaultType = "paint"
-    _defaultColor = "black"
-    _defaultReplaceText = ""
+    #defaultElement = "censored"
+    #defaultType = "paint"
+    #defaultColor = "black"
 
     constructor() {
-        // initialize
+        /*
+         * Initialize
+         */
         super()
         const shadow = this.attachShadow({ mode: "open" })
         const wrapper = document.createElement("span")
@@ -13,55 +14,69 @@ class UnderCensorship extends HTMLElement {
         wrapper.setAttribute("class", "container")
         wrapper.appendChild(slot)
 
-        // tag
+        /*
+         * Tag option
+         */
         const elementAttribute = this.getAttribute('tag')
         const censorshipElement = elementAttribute != null && elementAttribute != ""
                 ? elementAttribute 
-                : this._defaultElement
+                : this.#defaultElement
 
-        // type
+        /*
+         * Type option
+         */
         const typeAttribute = this.getAttribute('type')
         const typeSet = new Set(["paint", "blur", "visible"])
-        const censorshipType = typeSet.has(typeAttribute) ? typeAttribute : this._defaultType
+        const censorshipType = typeSet.has(typeAttribute) ? typeAttribute : this.#defaultType
 
-        // style
+        /*
+         * Style
+         */
         const colorAttribute = this.getAttribute('color')
         const isColorCode = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$").test(colorAttribute)
-        const censorshipColor = isColorCode ? colorAttribute : this._defaultColor;
+        const censorshipColor = isColorCode ? colorAttribute : this.#defaultColor;
         const style = document.createElement("style")
         style.textContent = `
             .container {
                 padding: 0;
                 margin: 0; 
             }
-            ${this._generateStyle(censorshipType, censorshipElement, censorshipColor)}
+            ${this.#generateStyle(censorshipType, censorshipElement, censorshipColor)}
         `
     
-        // Add to Shadow DOM
+        /*
+         * Shadow DOM Manipulation
+         */
         shadow.appendChild(style)
         shadow.appendChild(wrapper)
 
-        // replace
+        /*
+         * Replace
+         */
         const replaceTextAttribute = this.getAttribute('replace-text')
         if (replaceTextAttribute != null && replaceTextAttribute != "") {
             const replaceRepeatAttribute = this.getAttribute('replace-repeat')
             const replaceRepeat = replaceRepeatAttribute == "true" || replaceRepeatAttribute == "True" 
+
+            // It won't work unless you add child elements to the Shadow DOM first.
             const htmlCollections = slot.assignedElements()
                 .map(elm => elm.getElementsByTagName(censorshipElement))
                 .filter(col => col.length > 0)
 
             htmlCollections.forEach(col => {
                 for (let item of col) {
-                    item.innerHTML = this._replace(item.innerHTML, replaceTextAttribute, replaceRepeat)
+                    item.innerHTML = this.#replaceText(item.innerHTML, replaceTextAttribute, replaceRepeat)
                 }
             })
         }
 
-        // Move child nodes to the Shadow DOM
+        /*
+         * Move child nodes to the Shadow DOM
+         */
         shadow.append(...this.childNodes)
     }
 
-    _generateStyle(censorshipType, censorshipElement, censorshipColor = this.defaultCensorshipColor) {
+    #generateStyle(censorshipType, censorshipElement, censorshipColor = this.defaultCensorshipColor) {
         switch(censorshipType){
             case "paint":
                 return `${censorshipElement} {
@@ -75,23 +90,21 @@ class UnderCensorship extends HTMLElement {
             case "visible":
                 /* FALLTHROUGH */
             default:
-                return `${censorshipElement} {
-                }`
-
+                return ""
         }
     }
 
-    _replace(str, replacedText, willRepeat) {
-        if (str == null || str == "" || replacedText == null || replacedText == "") {
+    #replaceText(searchText, newText, willRepeat) {
+        if (searchText == null || searchText == "" || newText == null || newText == "") {
             return ""
         }
 
-        let result = replacedText
+        let result = newText
         if (willRepeat) {
-            while(str.length > result.length) {
-                result += replacedText
+            while(searchText.length > result.length) {
+                result += newText
             }
-            result = result.substr(0, str.length)
+            result = result.substr(0, searchText.length)
         }
         return result
     }
