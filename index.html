@@ -4,10 +4,39 @@
     <meta charset="utf-8">
     <title>Redacted Component</title>
     <script src="RedactedText.js" defer></script>
+    <script src="RedactedSpan.js" defer></script>
+    <!-- <style>
+              redacted {
+                display: inline-block;
+                color: red;
+                background-color: red;
+            }
+    </style> -->
   </head>
   <body>
     <h1><r-t>Redacted</r-t>.js</h1>
+
     <p>This text has been <r-t>redacted</r-t>.</p>
     <p>This color is<r-t color="#334444">red</r-t>.</p>
+
+    <redacted-span>
+      <p>This text is not redacted.</p>
+      <redacted>Redacted first</redacted>
+      <p><redacted>Redacted second</redacted></p>
+      <p>
+        <ul>
+          <li>
+            <redacted>Redacted third</redacted>
+          </li>
+          <li>
+            This is not redacted
+          </li>
+        </ul>
+      </p>
+      <p class="redacted">
+        Testes
+      </p>
+    </redacted-span>
+
   </body>
 </html>

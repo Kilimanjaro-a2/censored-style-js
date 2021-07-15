@@ -1,0 +1,1 @@
+export const REDACTED_TAG_NAME = "REDACTED"

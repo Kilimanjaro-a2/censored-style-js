@@ -4,7 +4,7 @@ class RedactedText extends HTMLElement {
 
         const shadow = this.attachShadow({ mode: "open" })
 
-        const wrapper = document.createElement("span")
+        const wrapper = document.createElement("template")
 
         const slot = document.createElement("slot")
         wrapper.appendChild(slot)
