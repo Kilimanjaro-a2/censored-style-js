@@ -76,7 +76,7 @@ class UnderCensorship extends HTMLElement {
         shadow.append(...this.childNodes)
     }
 
-    #generateStyle(censorshipType, censorshipElement, censorshipColor = this.defaultCensorshipColor) {
+    #generateStyle(censorshipType: string, censorshipElement: string, censorshipColor = this.#defaultColor) {
         switch(censorshipType){
             case "paint":
                 return `${censorshipElement} {
@@ -94,7 +94,7 @@ class UnderCensorship extends HTMLElement {
         }
     }
 
-    #replaceText(searchText, newText, willRepeat) {
+    #replaceText(searchText: string, newText: string, willRepeat: boolean) {
         if (searchText == null || searchText == "" || newText == null || newText == "") {
             return ""
         }
