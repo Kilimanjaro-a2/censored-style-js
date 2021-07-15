@@ -1,6 +1,7 @@
 class UnderCensorship extends HTMLElement {
-    defaultCensorshipElement = "censored"
-    defaultCensorshipColor = "black"
+    _defaultElement = "censored"
+    _defaultType = "Paint"
+    _defaultColor = "black"
 
     constructor() {
         // initialize
@@ -14,29 +15,46 @@ class UnderCensorship extends HTMLElement {
         // tag
         const elementAttribute = this.getAttribute('tag')
         const censorshipElement = elementAttribute != null && elementAttribute != ""
-                ?  censorshipTagAttribute 
-                : this.defaultCensorshipElement
+                ? elementAttribute 
+                : this._defaultElement
+
+        // type
+        const typeAttribute = this.getAttribute('type')
+        const typeSet = new Set(["Paint", "Blur"])
+        const censorshipType = typeSet.has(typeAttribute) ? typeAttribute : this._defaultType
 
         // color
         const colorAttribute = this.getAttribute('color')
         const isColorCode = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$").test(colorAttribute)
-        let censorshipColor = isColorCode ? colorAttribute : this.defaultCensorshipColor;
+        const censorshipColor = isColorCode ? colorAttribute : this._defaultColor;
         const style = document.createElement("style")
         style.textContent = `
             .container {
                 padding: 0;
                 margin: 0; 
             }
-            ${censorshipElement} {
-                display: inline-block;
-                color: ${censorshipColor};
-                background-color: ${censorshipColor};
-            }
+            ${this._generateStyle(censorshipType, censorshipElement, censorshipColor)}
         `
         
         shadow.appendChild(style)
         shadow.appendChild(wrapper)
         shadow.append(...this.childNodes)
+    }
+
+    _generateStyle(censorshipType, censorshipElement, censorshipColor = this.defaultCensorshipColor) {
+        switch(censorshipType){
+            case "Blur":
+                return `${censorshipElement} {
+                    filter: blur(2px);
+                }`
+            case "Paint":
+                /* FALLTHROUGH */
+            default:
+                return `${censorshipElement} {
+                    color: ${censorshipColor};
+                    background-color: ${censorshipColor};
+                }`
+        }
     }
 }
 customElements.define("under-censorship", UnderCensorship)
