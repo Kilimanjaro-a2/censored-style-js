@@ -2,34 +2,33 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Redacted Component</title>
+    <title>UnderCensorship.js</title>
     <script src="UnderCensorship.js" defer></script>
   </head>
   <body>
-    <h1><r-t>Redacted</r-t>.js</h1>
-
-    <p>This text has been <r-t>redacted</r-t>.</p>
-    <p>This color is<r-t color="#334444">red</r-t>.</p>
-
     <under-censorship>
-      <p>This text is not redacted.</p>
-      <censored>Redacted first</censored>
-      <p><censored>Redacted second</censored></p>
+      <h1>Under<censored>Censorship</censored>.js</h1>
+
+      <p>This text is not censored.</p>
+      <censored>This text is censored.</censored>
+
       <p>
-        <ul>
-          <li>
-            <censored>Redacted third</censored>
-          </li>
-          <li>
-            This is not redacted
-          </li>
-        </ul>
+        <censored>Text enclosed in the specified tags will be censored even if it is nested</censored>
       </p>
+
       <p class="censored">
-        This is not redacted even if the class says it is redacted.
+        This is not censored even if the class says it is redacted.
       </p>
       <p>There is a support for <c>abbreviated</c> tags.</p>
+
     </under-censorship>
 
+    <under-censorship
+      color="#808080"
+    >
+      <p>
+          This color of <c>censored text</c> is gray.
+      </p>
+    </under-censorship>
   </body>
 </html>
