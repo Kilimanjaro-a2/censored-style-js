@@ -1,11 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "start": "yarn run http-server"
+    "start": "webpack serve",
+    "webpack": "webpack"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "http-server": "^0.12.3"
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
   }
 }
