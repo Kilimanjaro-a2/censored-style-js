@@ -25,14 +25,14 @@ class UnderCensorship extends HTMLElement {
         /*
          * Type option
          */
-        const typeAttribute = this.getAttribute('type')
+        const typeAttribute = this.getAttribute('type') ?? "paint"
         const typeSet = new Set(["paint", "blur", "visible"])
         const censorshipType = typeSet.has(typeAttribute) ? typeAttribute : this.#defaultType
 
         /*
          * Style
          */
-        const colorAttribute = this.getAttribute('color')
+        const colorAttribute = this.getAttribute('color') ?? "#000000"
         const isColorCode = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$").test(colorAttribute)
         const censorshipColor = isColorCode ? colorAttribute : this.#defaultColor;
         const style = document.createElement("style")
