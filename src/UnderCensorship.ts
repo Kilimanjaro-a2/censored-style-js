@@ -36,13 +36,7 @@ class UnderCensorship extends HTMLElement {
         const isColorCode = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$").test(colorAttribute)
         const censorshipColor = isColorCode ? colorAttribute : this.#defaultColor;
         const style = document.createElement("style")
-        style.textContent = `
-            .container {
-                padding: 0;
-                margin: 0; 
-            }
-            ${this.#generateStyle(censorshipType, censorshipElement, censorshipColor)}
-        `
+        style.textContent = this.#generateStyle(censorshipType, censorshipElement, censorshipColor)
     
         /*
          * Shadow DOM Manipulation
@@ -79,14 +73,9 @@ class UnderCensorship extends HTMLElement {
     #generateStyle(censorshipType: string, censorshipElement: string, censorshipColor = this.#defaultColor) {
         switch(censorshipType){
             case "paint":
-                return `${censorshipElement} {
-                    color: ${censorshipColor};
-                    background-color: ${censorshipColor};
-                }`
+                return `${censorshipElement} { color: ${censorshipColor}; background-color: ${censorshipColor}; }`
             case "blur":
-                return `${censorshipElement} {
-                    filter: blur(2px);
-                }`
+                return `${censorshipElement} { filter: blur(2px); }`
             case "visible":
                 /* FALLTHROUGH */
             default:
