@@ -1,4 +1,6 @@
 class UnderCensorship extends HTMLElement {
+    defaultCensorShipTag = "censored"
+
     constructor() {
         super()        
         const shadow = this.attachShadow({ mode: "open" })
@@ -9,23 +11,17 @@ class UnderCensorship extends HTMLElement {
         const slot = document.createElement("slot")
         wrapper.appendChild(slot)
 
+        const censorshipTagAttribute = this.getAttribute('tag')
+        const censorshipTag = censorshipTagAttribute != null && censorshipTagAttribute != ""
+                ?  censorshipTagAttribute 
+                : this.defaultCensorShipTag
 
-        // const type = this.getAttribute('type')
-        // switch(type) {
-        //     case "red":
-        //         wrapper.setAttribute("class", "red")
-        //         break;
-        //     case "normal":
-        //     default:
-        //         wrapper.setAttribute("class", "normal")
-        //         break;
-        // }
+        console.log(censorshipTag)
 
-        const color = this.getAttribute('color')
-        const regEx = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")
-        const isColorCode = regEx.test(color)
+        const colorAttribute = this.getAttribute('color')
+        const isColorCode = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$").test(colorAttribute)
 
-        let censorshipColor = isColorCode ? color : "black";
+        let censorshipColor = isColorCode ? colorAttribute : "black";
 
         const style = document.createElement("style")
         style.textContent = `
@@ -33,8 +29,7 @@ class UnderCensorship extends HTMLElement {
                 padding: 0;
                 margin: 0; 
             }
-            c,
-            censored {
+            ${censorshipTag} {
                 display: inline-block;
                 color: ${censorshipColor};
                 background-color: ${censorshipColor};

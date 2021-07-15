@@ -10,24 +10,30 @@
       <h1>Under<censored>Censorship</censored>.js</h1>
 
       <p>This text is not censored.</p>
-      <censored>This text is censored.</censored>
+      <p>This text is <censored>censored</censored>.</p>
 
       <p>
-        <censored>Text enclosed in the specified tags will be censored even if it is nested</censored>
+        Text enclosed in the specified tags will be <censored>censored</censored> even if it is nested</censored>
       </p>
 
       <p class="censored">
         This is not censored even if the class says it is redacted.
       </p>
-      <p>There is a support for <c>abbreviated</c> tags.</p>
-
     </under-censorship>
 
     <under-censorship
       color="#808080"
     >
       <p>
-          This color of <c>censored text</c> is gray.
+        This color of <censored>censored text</censored> is gray.
+      </p>
+    </under-censorship>
+
+    <under-censorship
+      tag="c"
+    >
+      <p>
+        You can change the tags surrounding the text to be <c>censored</c> as you wish
       </p>
     </under-censorship>
   </body>
