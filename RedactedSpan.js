@@ -17,21 +17,18 @@ class RedactedSpan extends HTMLElement {
                 padding: 0;
                 margin: 0; 
             }
-            ::slotted(redacted) {
+            r,
+            redacted {
                 display: inline-block;
                 color: red;
                 background-color: red;
             }
         `
+        
         shadow.appendChild(style)
         shadow.appendChild(wrapper)
-
-        // const redactedElements = slot.assignedElements()
-        //     .map(elm => elm.getElementsByTagName("redacted"))
-        //     .filter(col => col.length > 0)
         
-        // // redactedElements[0].setAttribute("class", "redacted")
-        // console.log(redactedElements)
+        this.shadowRoot.append(...this.childNodes)
     }
 }
 customElements.define("redacted-span", RedactedSpan)
