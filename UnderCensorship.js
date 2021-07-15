@@ -1,35 +1,33 @@
 class UnderCensorship extends HTMLElement {
-    defaultCensorShipTag = "censored"
+    defaultCensorshipElement = "censored"
+    defaultCensorshipColor = "black"
 
     constructor() {
-        super()        
+        // initialize
+        super()
         const shadow = this.attachShadow({ mode: "open" })
-
         const wrapper = document.createElement("span")
-        wrapper.setAttribute("class", "container")
-
         const slot = document.createElement("slot")
+        wrapper.setAttribute("class", "container")
         wrapper.appendChild(slot)
 
-        const censorshipTagAttribute = this.getAttribute('tag')
-        const censorshipTag = censorshipTagAttribute != null && censorshipTagAttribute != ""
+        // tag
+        const elementAttribute = this.getAttribute('tag')
+        const censorshipElement = elementAttribute != null && elementAttribute != ""
                 ?  censorshipTagAttribute 
-                : this.defaultCensorShipTag
+                : this.defaultCensorshipElement
 
-        console.log(censorshipTag)
-
+        // color
         const colorAttribute = this.getAttribute('color')
         const isColorCode = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$").test(colorAttribute)
-
-        let censorshipColor = isColorCode ? colorAttribute : "black";
-
+        let censorshipColor = isColorCode ? colorAttribute : this.defaultCensorshipColor;
         const style = document.createElement("style")
         style.textContent = `
             .container {
                 padding: 0;
                 margin: 0; 
             }
-            ${censorshipTag} {
+            ${censorshipElement} {
                 display: inline-block;
                 color: ${censorshipColor};
                 background-color: ${censorshipColor};
