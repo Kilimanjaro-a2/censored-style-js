@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Redacted Component</title>
-    <script src="RedactedText.js" defer></script>
-    <script src="RedactedSpan.js" defer></script>
+    <script src="UnderCensorship.js" defer></script>
   </head>
   <body>
     <h1><r-t>Redacted</r-t>.js</h1>
@@ -12,25 +11,25 @@
     <p>This text has been <r-t>redacted</r-t>.</p>
     <p>This color is<r-t color="#334444">red</r-t>.</p>
 
-    <redacted-span>
+    <under-censorship>
       <p>This text is not redacted.</p>
-      <redacted>Redacted first</redacted>
-      <p><redacted>Redacted second</redacted></p>
+      <censored>Redacted first</censored>
+      <p><censored>Redacted second</censored></p>
       <p>
         <ul>
           <li>
-            <redacted>Redacted third</redacted>
+            <censored>Redacted third</censored>
           </li>
           <li>
             This is not redacted
           </li>
         </ul>
       </p>
-      <p class="redacted">
+      <p class="censored">
         This is not redacted even if the class says it is redacted.
       </p>
-      <p>There is a support for <r>abbreviated</r> tags.</p>
-    </redacted-span>
+      <p>There is a support for <c>abbreviated</c> tags.</p>
+    </under-censorship>
 
   </body>
 </html>

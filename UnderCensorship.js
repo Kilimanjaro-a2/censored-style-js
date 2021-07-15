@@ -1,4 +1,4 @@
-class RedactedSpan extends HTMLElement {
+class UnderCensorship extends HTMLElement {
     constructor() {
         super()        
         const shadow = this.attachShadow({ mode: "open" })
@@ -17,18 +17,17 @@ class RedactedSpan extends HTMLElement {
                 padding: 0;
                 margin: 0; 
             }
-            r,
-            redacted {
+            c,
+            censored {
                 display: inline-block;
-                color: red;
-                background-color: red;
+                color: black;
+                background-color: black;
             }
         `
         
         shadow.appendChild(style)
         shadow.appendChild(wrapper)
-        
-        this.shadowRoot.append(...this.childNodes)
+        shadow.append(...this.childNodes)
     }
 }
-customElements.define("redacted-span", RedactedSpan)
+customElements.define("under-censorship", UnderCensorship)
