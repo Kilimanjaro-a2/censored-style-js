@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   entry: './src/UnderCensorship.ts',
@@ -7,15 +7,15 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
+        exclude: /node_modules/
+      }
+    ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js']
   },
   output: {
     filename: 'UnderCensorship.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
+    path: path.resolve(__dirname, 'dist')
+  }
 }
