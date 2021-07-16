@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "start": "webpack serve",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "lint": "eslint src/* --fix"
   },
   "dependencies": {},
   "devDependencies": {

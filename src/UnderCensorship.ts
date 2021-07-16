@@ -32,7 +32,8 @@ class UnderCensorship extends HTMLElement {
          * Style
          */
       const colorAttribute: string = this.getAttribute('color') ?? '#000000'
-      const isColorCode: boolean = new RegExp('^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$').test(colorAttribute)
+      const colorCodeRegEx = /'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'/
+      const isColorCode: boolean = colorCodeRegEx.test(colorAttribute)
       const censorshipColor: string = isColorCode ? colorAttribute : this.#defaultColor
       const style: HTMLStyleElement = document.createElement('style')
       style.textContent = this.#generateStyle(censorshipType, censorshipElement, censorshipColor)
@@ -49,7 +50,7 @@ class UnderCensorship extends HTMLElement {
       const replaceTextAttribute: string = this.getAttribute('replace-text') ?? ''
       if (replaceTextAttribute !== '') {
         const replaceRepeatAttribute: string = this.getAttribute('replace-repeat') ?? ''
-        const replaceRepeat: boolean = replaceRepeatAttribute == 'true' || replaceRepeatAttribute == 'True'
+        const replaceRepeat: boolean = replaceRepeatAttribute === 'true' || replaceRepeatAttribute === 'True'
 
         // It won't work unless you add child elements to the Shadow DOM first.
         const htmlCollections: HTMLCollectionOf<Element>[] = slot.assignedElements()
