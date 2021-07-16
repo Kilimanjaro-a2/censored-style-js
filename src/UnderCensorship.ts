@@ -14,6 +14,7 @@ class UnderCensorship extends HTMLElement {
       const wrapper: HTMLElement = document.createElement("span")
       const slot: HTMLSlotElement = document.createElement("slot")
       wrapper.setAttribute("class", "container")
+      wrapper.setAttribute("ontouchstart", "")
       wrapper.appendChild(slot)
 
       /*
@@ -82,11 +83,12 @@ class UnderCensorship extends HTMLElement {
       switch (censorshipType) {
         case "paint":
           baseStyle = `${censorshipElement} { color: ${censorshipColor}; background-color: ${censorshipColor}; }`
-          hoverStyle = `${censorshipElement}:hover { color: initial; background-color: initial; ${transitionSetting}; }`
+          hoverStyle = `${censorshipElement}:hover, ${censorshipElement}:active
+{ color: initial; background-color: initial; ${transitionSetting}; }`
           break
         case "blur":
           baseStyle = `${censorshipElement} { filter: blur(2px); }`
-          hoverStyle = `${censorshipElement}:hover { filter: none; ${transitionSetting}; }`
+          hoverStyle = `${censorshipElement}:hover, ${censorshipElement}:active { filter: none; ${transitionSetting}; }`
           break
         case "visible":
           /* FALLTHROUGH */
