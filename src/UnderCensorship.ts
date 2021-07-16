@@ -20,19 +20,19 @@ class UnderCensorship extends HTMLElement {
       /*
        * Tag option
        */
-      const censorshipElement: string = this.getAttribute("tag") ?? this.#defaultElement
+      const censorshipElement: string = this.getAttribute("censorship-tag") ?? this.#defaultElement
 
       /*
        * Type option
        */
-      const attrType: string = this.getAttribute("type") ?? "paint"
+      const attrType: string = this.getAttribute("censorship-type") ?? "paint"
       const typeSet: Set<string> = new Set(["paint", "blur", "visible"]) // TODO: Use TypeScript's type
       const censorshipType: censorshipType = typeSet.has(attrType) ? attrType as censorshipType : this.#defaultType
 
       /*
-       * Style
+       * Styling
        */
-      const colorAttribute: string = this.getAttribute("color") ?? "#000000"
+      const colorAttribute: string = this.getAttribute("censorship-color") ?? "#000000"
       const colorCodeRegEx = /'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'/
       const isColorCode: boolean = colorCodeRegEx.test(colorAttribute)
       const censorshipColor: string = isColorCode ? colorAttribute : this.#defaultColor
@@ -46,7 +46,7 @@ class UnderCensorship extends HTMLElement {
       shadow.appendChild(wrapper)
 
       /*
-       * Replace
+       *  Functions of Replace
        */
       const replaceTextAttribute: string = this.getAttribute("replace-text") ?? ""
       if (replaceTextAttribute !== "") {
@@ -66,7 +66,7 @@ class UnderCensorship extends HTMLElement {
       }
 
       /*
-       * Move child nodes to the Shadow DOM
+       * Adding child nodes to the Shadow DOM for encapsulation
        */
       shadow.append(...this.childNodes)
     }
