@@ -4,8 +4,29 @@
     <meta charset="utf-8">
     <title>UnderCensorship.js</title>
     <script src="dist/under-censorship.js" defer></script>
+    <style>
+      .foo {
+        font: 30px;
+        color: red;
+        background-color: blue;
+      }
+    </style>
   </head>
   <body>
+    <p class="foo">
+      testes
+    </p>
+    <under-censorship>
+      <p class="foo">
+        testes
+      </p>
+    </under-censorship>
+    <under-censorship>
+        <p class="foo">
+          <censored>testes</censored>
+        </p>
+    </under-censorship>
+
     <under-censorship
       censorship-tag="c"
     >

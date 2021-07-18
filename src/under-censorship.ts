@@ -31,17 +31,26 @@ class UnderCensorship extends HTMLElement {
       const censorshipType: censorshipType = typeSet.has(attrType) ? attrType as censorshipType : this.#defaultType
 
       /*
+       * Shadow DOM Manipulation
+       */
+      shadow.appendChild(wrapper)
+
+      /*
        * Styling
        */
       const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
-      const style: HTMLStyleElement = document.createElement("style")
-      style.textContent = generateStyle(censorshipType, censorshipElement, colorAttribute)
+      const styleString = generateStyle(censorshipType, colorAttribute)
 
-      /*
-       * Shadow DOM Manipulation
-       */
-      shadow.appendChild(style)
-      shadow.appendChild(wrapper)
+      const htmlCollections: HTMLCollectionOf<Element>[] = slot.assignedElements()
+        .map(elm => elm.getElementsByTagName(censorshipElement))
+        .filter(col => col.length > 0)
+
+      htmlCollections.forEach(col => {
+        for (const item of col) {
+          console.log(item)
+          item.setAttribute("style", styleString)
+        }
+      })
 
       /*
        *  Functions of Replace
@@ -51,22 +60,13 @@ class UnderCensorship extends HTMLElement {
         const replaceRepeatAttribute: string = this.getAttribute("replace-repeat") ?? ""
         const replaceRepeat: boolean = replaceRepeatAttribute === "true" || replaceRepeatAttribute === "True"
 
-        // It won't work unless you add child elements to the Shadow DOM first.
-        const htmlCollections: HTMLCollectionOf<Element>[] = slot.assignedElements()
-          .map(elm => elm.getElementsByTagName(censorshipElement))
-          .filter(col => col.length > 0)
-
+        // TODO: DRY same forEachs
         htmlCollections.forEach(col => {
           for (const item of col) {
             item.innerHTML = replaceText(item.innerHTML, replaceTextAttribute, replaceRepeat)
           }
         })
       }
-
-      /*
-       * Adding child nodes to the Shadow DOM for encapsulation
-       */
-      shadow.append(...this.childNodes)
     }
 }
 customElements.define("under-censorship", UnderCensorship)
