@@ -1,3 +1,4 @@
+import validateColor from "validate-color"
 type censorshipType = "paint" | "blur" | "visible"
 
 class UnderCensorship extends HTMLElement {
@@ -33,9 +34,7 @@ class UnderCensorship extends HTMLElement {
        * Styling
        */
       const colorAttribute: string = this.getAttribute("censorship-color") ?? "#000000"
-      const colorCodeRegEx = /'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'/
-      const isColorCode: boolean = colorCodeRegEx.test(colorAttribute)
-      const censorshipColor: string = isColorCode ? colorAttribute : this.#defaultColor
+      const censorshipColor: string = validateColor(colorAttribute) ? colorAttribute : this.#defaultColor
       const style: HTMLStyleElement = document.createElement("style")
       style.textContent = this.#generateStyle(censorshipType, censorshipElement, censorshipColor)
 

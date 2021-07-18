@@ -5,7 +5,9 @@
     "webpack": "webpack",
     "lint": "eslint src/* --fix"
   },
-  "dependencies": {},
+  "dependencies": {
+    "validate-color": "^2.1.1"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
