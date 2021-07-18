@@ -31,6 +31,13 @@ class UnderCensorship extends HTMLElement {
       const censorshipType: censorshipType = typeSet.has(attrType) ? attrType as censorshipType : this.#defaultType
 
       /*
+       *  Replace option
+       */
+      const replaceTextAttribute: string = this.getAttribute("replace-text") ?? ""
+      const replaceRepeatAttribute: string = this.getAttribute("replace-repeat") ?? ""
+      const replaceRepeat: boolean = replaceRepeatAttribute === "true" || replaceRepeatAttribute === "True"
+
+      /*
        * Shadow DOM Manipulation
        */
       shadow.appendChild(wrapper)
@@ -41,33 +48,25 @@ class UnderCensorship extends HTMLElement {
       const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
       const styleString = generateStyle(censorshipType, colorAttribute)
 
-      const assignedElements = slot.assignedElements()
-      assignedElements.forEach(element => {
+      const foundElements: Element[] = []
+      slot.assignedElements().forEach(element => {
         if (element.tagName.toUpperCase() === censorshipElement.toUpperCase()) {
-          element.setAttribute("style", styleString)
+          foundElements.push(element)
         }
 
         const nestedElements = element.getElementsByTagName(censorshipElement)
         for (const nestedElement of nestedElements) {
-          nestedElement.setAttribute("style", styleString)
+          foundElements.push(nestedElement)
         }
       })
 
-      /*
-       *  Functions of Replace
-       */
-      const replaceTextAttribute: string = this.getAttribute("replace-text") ?? ""
-      if (replaceTextAttribute !== "") {
-        const replaceRepeatAttribute: string = this.getAttribute("replace-repeat") ?? ""
-        const replaceRepeat: boolean = replaceRepeatAttribute === "true" || replaceRepeatAttribute === "True"
+      foundElements.forEach(element => {
+        element.setAttribute("style", styleString)
 
-        // TODO: DRY same forEachs
-        // htmlCollections.forEach(col => {
-        //   for (const item of col) {
-        //     item.innerHTML = replaceText(item.innerHTML, replaceTextAttribute, replaceRepeat)
-        //   }
-        // })
-      }
+        if (replaceTextAttribute !== "") {
+          element.innerHTML = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)
+        }
+      })
     }
 }
 customElements.define("under-censorship", UnderCensorship)
