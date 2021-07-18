@@ -1,8 +1,7 @@
 import validateColor from "validate-color"
 import { censorshipType } from "./types"
 
-// TODO: Fix hover
-export function generateStyle (
+export function generateBaseStyle (
   censorshipType: censorshipType,
   censorshipColor: string = "black"
 ): string {
@@ -32,10 +31,10 @@ export function generateHoverStyle (
   let result = ""
   switch (censorshipType) {
     case "paint":
-      result = `color: initial; background-color: initial; ${transitionSetting}; }`
+      result = `color: initial; background-color: initial; ${transitionSetting};`
       break
     case "blur":
-      result = `filter: none; ${transitionSetting}; }`
+      result = `filter: none; ${transitionSetting};`
       break
     case "visible":
       /* FALLTHROUGH */

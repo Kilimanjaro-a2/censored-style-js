@@ -1,4 +1,4 @@
-import { generateStyle, generateHoverStyle, replaceText } from "./string-util"
+import { generateBaseStyle, generateHoverStyle, replaceText } from "./string-util"
 import { censorshipType } from "./types"
 
 class UnderCensorship extends HTMLElement {
@@ -60,14 +60,14 @@ class UnderCensorship extends HTMLElement {
         }
       })
 
-      const styleString = generateStyle(censorshipType, colorAttribute)
+      const baseStyleString = generateBaseStyle(censorshipType, colorAttribute)
       const hoverStyleString = invokesHoverEvent ? generateHoverStyle(censorshipType) : ""
       foundElements.forEach(element => {
-        element.setAttribute("style", styleString)
+        element.setAttribute("style", baseStyleString)
 
         if (invokesHoverEvent) {
           element.addEventListener("mouseover", _ => element.setAttribute("style", hoverStyleString), false)
-          element.addEventListener("mouseout", _ => element.setAttribute("style", styleString), false)
+          element.addEventListener("mouseout", _ => element.setAttribute("style", baseStyleString), false)
         }
 
         if (replaceTextAttribute !== "") {
