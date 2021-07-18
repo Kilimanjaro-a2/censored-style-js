@@ -31,7 +31,7 @@ export function generateHoverStyle (
   let result = ""
   switch (censorshipType) {
     case "paint":
-      result = `color: initial; background-color: initial; ${transitionSetting};`
+      result = `color: unset; background-color: unset; ${transitionSetting};`
       break
     case "blur":
       result = `filter: none; ${transitionSetting};`
