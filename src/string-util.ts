@@ -14,7 +14,7 @@ export function generateBaseStyle (
       }
       break
     case "blur":
-      baseStyle = "filter: blur(2px);"
+      baseStyle = `filter: blur(2px);`
       break
     case "visible":
       /* FALLTHROUGH */
