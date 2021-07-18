@@ -15,7 +15,14 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"]
   },
   output: {
-    filename: "under-censorship.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "public"),
+    filename: "main.js"
+  },
+  devServer: {
+    index: "index.html",
+    contentBase: ["./src", "./public"],
+    open: true,
+    inline: true,
+    hot: true
   }
 }

@@ -19,7 +19,7 @@
         "src/**/*"
     ],
     "exclude": [
-        "dist",
+        "public/main.js",
         "node_modules"
     ],
     "compileOnSave": false
