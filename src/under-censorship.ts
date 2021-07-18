@@ -1,5 +1,5 @@
 import validateColor from "validate-color"
-import { generateStyle, replaceText } from "./stringUtil"
+import { generateStyle, replaceText } from "./string-util"
 import { censorshipType } from "./types"
 
 class UnderCensorship extends HTMLElement {

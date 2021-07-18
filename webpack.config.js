@@ -1,7 +1,7 @@
 const path = require("path")
 
 module.exports = {
-  entry: "./src/underCensorship.ts",
+  entry: "./src/under-censorship.ts",
   module: {
     rules: [
       {
@@ -15,7 +15,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"]
   },
   output: {
-    filename: "underCensorship.js",
+    filename: "under-censorship.js",
     path: path.resolve(__dirname, "dist")
   }
 }
