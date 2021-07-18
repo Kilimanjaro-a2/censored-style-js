@@ -3,12 +3,15 @@
   "scripts": {
     "start": "webpack serve",
     "webpack": "webpack",
-    "lint": "eslint src/* --fix"
+    "lint": "eslint src/* --fix",
+    "test": "jest"
   },
   "dependencies": {
     "validate-color": "^2.1.1"
   },
   "devDependencies": {
+    "@types/babel__core": "^7.1.15",
+    "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
     "eslint": "^7.30.0",
@@ -16,6 +19,8 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.3",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.5",
     "webpack": "^5.44.0",
