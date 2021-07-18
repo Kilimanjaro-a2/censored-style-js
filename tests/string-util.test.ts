@@ -20,12 +20,12 @@ test("Generates styles with various Color arguments", () => {
 })
 
 test("Generates styles with various Hover arguments", () => {
-  expect(generateHoverStyle("paint")).toBe("color: initial; background-color: initial; transition: all 0.5s 0s ease;")
+  expect(generateHoverStyle("paint")).toBe("color: unset; background-color: unset; transition: all 0.5s 0s ease;")
   expect(generateHoverStyle("blur")).toBe("filter: none; transition: all 0.5s 0s ease;")
   expect(generateHoverStyle("visible")).toBe("")
 
   // with Transition argument
-  expect(generateHoverStyle("paint", "transition: all 0.3s 0.6s ease-out")).toBe("color: initial; background-color: initial; transition: all 0.3s 0.6s ease-out;")
+  expect(generateHoverStyle("paint", "transition: all 0.3s 0.6s ease-out")).toBe("color: unset; background-color: unset; transition: all 0.3s 0.6s ease-out;")
 })
 
 /*
