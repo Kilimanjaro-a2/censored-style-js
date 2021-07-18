@@ -1,3 +1,4 @@
+import validateColor from "validate-color"
 import { censorshipType } from "./types"
 
 export function generateStyle (
@@ -5,19 +6,21 @@ export function generateStyle (
   censorshipElement: string,
   censorshipColor: string = "black",
   disableOnHover: boolean = true,
-  transitionSetting: string = "transition: all 0.5s 0s ease;"
+  transitionSetting: string = "transition: all 0.5s 0s ease"
 ): string {
   let baseStyle = ""
   let hoverStyle = ""
   switch (censorshipType) {
     case "paint":
-      baseStyle = `${censorshipElement} { color: ${censorshipColor}; background-color: ${censorshipColor}; }`
-      hoverStyle = `${censorshipElement}:hover, ${censorshipElement}:active
-{ color: initial; background-color: initial; ${transitionSetting}; }`
+      {
+        const color = validateColor(censorshipColor) ? censorshipColor : "black"
+        baseStyle = `${censorshipElement} { color: ${color}; background-color: ${color}; }`
+        hoverStyle = ` ${censorshipElement}:hover, ${censorshipElement}:active { color: initial; background-color: initial; ${transitionSetting}; }`
+      }
       break
     case "blur":
       baseStyle = `${censorshipElement} { filter: blur(2px); }`
-      hoverStyle = `${censorshipElement}:hover, ${censorshipElement}:active { filter: none; ${transitionSetting}; }`
+      hoverStyle = ` ${censorshipElement}:hover, ${censorshipElement}:active { filter: none; ${transitionSetting}; }`
       break
     case "visible":
       /* FALLTHROUGH */

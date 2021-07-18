@@ -1,4 +1,3 @@
-import validateColor from "validate-color"
 import { generateStyle, replaceText } from "./string-util"
 import { censorshipType } from "./types"
 
@@ -35,9 +34,8 @@ class UnderCensorship extends HTMLElement {
        * Styling
        */
       const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
-      const censorshipColor: string = validateColor(colorAttribute) ? colorAttribute : this.#defaultColor
       const style: HTMLStyleElement = document.createElement("style")
-      style.textContent = generateStyle(censorshipType, censorshipElement, censorshipColor)
+      style.textContent = generateStyle(censorshipType, censorshipElement, colorAttribute)
 
       /*
        * Shadow DOM Manipulation
