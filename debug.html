@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>UnderCensorship.js</title>
+    <script src="dist/under-censorship.js" defer></script>
+    <style>
+      .foo {
+        font: 30px;
+        color: red;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <under-censorship
+    censorship-tag="c"
+  >
+    <p>UnderCensorship.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
+Since it uses Web Components, it can be used with any framework, including <c>React</c>, <c>Vue</c>, and <c>Svelte</c>.<br>
+Of course, it can also be used with <c>Vanilla JS</c>.</p>
+  </under-censorship>
+
+  <under-censorship
+  censorship-tag="c"
+>
+  UnderCensorship.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
+Since it uses Web Components, it can be used with any framework, including <c>React</c>, <c>Vue</c>, and <c>Svelte</c>.<br>
+Of course, it can also be used with <c>Vanilla JS</c>.
+</under-censorship>
+    <!-- <under-censorship
+      censorship-tag="c"
+    >
+      Under<c>Censorship</c>.js
+
+      UnderCensorship.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
+  Since it uses Web Components, it can be used with any framework, including <c>React</c>, <c>Vue</c>, and <c>Svelte</c>.<br>
+  Of course, it can also be used with <c>Vanilla JS</c>.
+    </under-censorship>
+    <under-censorship
+      censorship-tag="c"
+    >
+      <h1>Under<c>Censorship</c>.js</h1>
+
+      <p>UnderCensorship.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
+  Since it uses Web Components, it can be used with any framework, including <c>React</c>, <c>Vue</c>, and <c>Svelte</c>.<br>
+  Of course, it can also be used with <c>Vanilla JS</c>.</p>
+    </under-censorship>
+    
+    <under-censorship censorship-type="paint">
+      This is the default <censored>black paint style</censored>.
+    </under-censorship>
+
+    <p>
+      <under-censorship censorship-type="paint">
+        This is the default <censored>black paint style</censored>.
+      </under-censorship>
+    </p>
+
+    <div>
+      <p>
+        <under-censorship censorship-type="paint">
+          This is the default <censored>black paint style</censored>.
+        </under-censorship>
+      </p>
+    </div>
+    <ul>
+      <li>
+        <under-censorship censorship-type="paint">
+          This is the default <censored>black paint style</censored>.
+        </under-censorship>
+      </li>
+    </ul> -->
+  </body>
+</html>

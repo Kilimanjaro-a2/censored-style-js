@@ -41,14 +41,15 @@ class UnderCensorship extends HTMLElement {
       const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
       const styleString = generateStyle(censorshipType, colorAttribute)
 
-      const htmlCollections: HTMLCollectionOf<Element>[] = slot.assignedElements()
-        .map(elm => elm.getElementsByTagName(censorshipElement))
-        .filter(col => col.length > 0)
+      const assignedElements = slot.assignedElements()
+      assignedElements.forEach(element => {
+        if (element.tagName.toUpperCase() === censorshipElement.toUpperCase()) {
+          element.setAttribute("style", styleString)
+        }
 
-      htmlCollections.forEach(col => {
-        for (const item of col) {
-          console.log(item)
-          item.setAttribute("style", styleString)
+        const nestedElements = element.getElementsByTagName(censorshipElement)
+        for (const nestedElement of nestedElements) {
+          nestedElement.setAttribute("style", styleString)
         }
       })
 
@@ -61,11 +62,11 @@ class UnderCensorship extends HTMLElement {
         const replaceRepeat: boolean = replaceRepeatAttribute === "true" || replaceRepeatAttribute === "True"
 
         // TODO: DRY same forEachs
-        htmlCollections.forEach(col => {
-          for (const item of col) {
-            item.innerHTML = replaceText(item.innerHTML, replaceTextAttribute, replaceRepeat)
-          }
-        })
+        // htmlCollections.forEach(col => {
+        //   for (const item of col) {
+        //     item.innerHTML = replaceText(item.innerHTML, replaceTextAttribute, replaceRepeat)
+        //   }
+        // })
       }
     }
 }
