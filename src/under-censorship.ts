@@ -1,4 +1,4 @@
-import { generateStyle, replaceText } from "./string-util"
+import { generateStyle, generateHoverStyle, replaceText } from "./string-util"
 import { censorshipType } from "./types"
 
 class UnderCensorship extends HTMLElement {
@@ -46,7 +46,7 @@ class UnderCensorship extends HTMLElement {
        * Styling
        */
       const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
-      const styleString = generateStyle(censorshipType, colorAttribute)
+      const invokesHoverEvent = true // TODO: implement as attribute
 
       const foundElements: Element[] = []
       slot.assignedElements().forEach(element => {
@@ -60,8 +60,15 @@ class UnderCensorship extends HTMLElement {
         }
       })
 
+      const styleString = generateStyle(censorshipType, colorAttribute)
+      const hoverStyleString = invokesHoverEvent ? generateHoverStyle(censorshipType) : ""
       foundElements.forEach(element => {
         element.setAttribute("style", styleString)
+
+        if (invokesHoverEvent) {
+          element.addEventListener("mouseover", _ => element.setAttribute("style", hoverStyleString), false)
+          element.addEventListener("mouseout", _ => element.setAttribute("style", styleString), false)
+        }
 
         if (replaceTextAttribute !== "") {
           element.innerHTML = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)

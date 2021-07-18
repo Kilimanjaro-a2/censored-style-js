@@ -4,33 +4,45 @@ import { censorshipType } from "./types"
 // TODO: Fix hover
 export function generateStyle (
   censorshipType: censorshipType,
-  censorshipColor: string = "black",
-  disableOnHover: boolean = true,
-  transitionSetting: string = "transition: all 0.5s 0s ease"
+  censorshipColor: string = "black"
 ): string {
   let baseStyle = ""
-  // let hoverStyle = ""
   switch (censorshipType) {
     case "paint":
       {
         const color = validateColor(censorshipColor) ? censorshipColor : "black"
         baseStyle = `color: ${color}; background-color: ${color};`
-        // hoverStyle = ` :hover, :active { color: initial; background-color: initial; ${transitionSetting}; }`
       }
       break
     case "blur":
       baseStyle = "filter: blur(2px);"
-      // hoverStyle = ` :hover, :active { filter: none; ${transitionSetting}; }`
       break
     case "visible":
       /* FALLTHROUGH */
     default:
       break
   }
-  // if (disableOnHover) {
-  //   return baseStyle + hoverStyle
-  // }
   return baseStyle
+}
+
+export function generateHoverStyle (
+  censorshipType: censorshipType,
+  transitionSetting: string = "transition: all 0.5s 0s ease"
+): string {
+  let result = ""
+  switch (censorshipType) {
+    case "paint":
+      result = `color: initial; background-color: initial; ${transitionSetting}; }`
+      break
+    case "blur":
+      result = `filter: none; ${transitionSetting}; }`
+      break
+    case "visible":
+      /* FALLTHROUGH */
+    default:
+      break
+  }
+  return result
 }
 
 export function replaceText (
