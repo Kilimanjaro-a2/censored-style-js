@@ -1,4 +1,5 @@
 const path = require("path")
+const HTMLPlugin = require("html-webpack-plugin")
 
 module.exports = {
   entry: "./src/under-censorship.ts",
@@ -24,5 +25,10 @@ module.exports = {
     open: true,
     inline: true,
     hot: true
-  }
+  },
+  plugins: [
+    new HTMLPlugin({
+      template: path.join(__dirname, "src/index.html")
+    })
+  ]
 }

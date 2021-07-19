@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>UnderCensorship.js</title>
+    <script src="main.js" defer></script>
+    <style>
+      .foo {
+        font: 30px;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="foo">
+      testes
+    </p>
+    <under-censorship>
+      <p class="foo">
+        testes
+      </p>
+    </under-censorship>
+    <under-censorship>
+        <p class="foo">
+          <censored>testes</censored>
+        </p>
+    </under-censorship>
+
+    <under-censorship
+      censorship-tag="c"
+    >
+      <h1>Under<c>Censorship</c>.js</h1>
+
+      <p>UnderCensorship.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
+Since it uses Web Components, it can be used with any framework, including <c>React</c>, <c>Vue</c>, and <c>Svelte</c>.<br>
+Of course, it can also be used with <c>Vanilla JS</c>.</p>
+    </under-censorship>
+
+    <h3>There are many different types of Censorship.</h3>
+
+    
+    <ul>
+      <under-censorship censorship-type="paint">
+      <li>
+          This is the default <censored>black paint style</censored>.
+      </li>
+      </under-censorship>
+    </ul>
+    
+
+    <ul>
+      <li>
+        <under-censorship censorship-type="paint">
+          This is the default <censored style="color: red;">black paint style</censored>.
+        </under-censorship>
+      </li>
+
+      <li>
+        <under-censorship censorship-type="paint" censorship-color="#808080">
+          There are also styles that allow you to <censored>change the color</censored>.
+        </under-censorship>
+      </li>
+
+      <li>
+        <under-censorship censorship-type="blur">
+          This is a <censored>blur style</censored>.
+        </under-censorship>
+      </li>
+    </ul>
+
+    <h3>Convenient functionalities are also available.</h3>
+    <ul>
+      <li>
+        <under-censorship censorship-tag="c">
+          You can change the tags surrounding the text to be <c>censored</c> as you wish.
+        </under-censorship>
+      </li>
+
+      <li>
+        The functionality of UnderCensorship.js is encapsulated in Web Components, so it does not affect existing HTML elements that are not enclosed in &lt;under-censored&gt; tags like
+        <censored>this </censored><span class="censored">text</span>.
+      </li>
+    </ul>
+
+    <h1>Under<c>Censorship</c>.js</h1>
+    <under-censorship
+      censorship-tag="c"
+      censorship-type="visible"
+      replace-text="*"
+      replace-repeat="true"
+    >
+      <h1>Under<c>Censorship</c>.js</h1>
+    </under-censorship>
+    <under-censorship
+      censorship-tag="c"
+      censorship-type="paint"
+      replace-text="*"
+      replace-repeat="true"
+    >
+      <h1>Under<c>Censorship</c>.js</h1>
+    </under-censorship>
+    <under-censorship
+      censorship-tag="c"
+      censorship-type="visible"
+      replace-text="[REDACTED]"
+      replace-repeat="true"
+    >
+      <h1>Under<c>Censorship</c>.js</h1>
+    </under-censorship>
+    <under-censorship
+      censorship-tag="c"
+      censorship-type="visible"
+      replace-text="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      replace-repeat="true"
+    >
+      <h1>Under<c>Censorship</c>.js</h1>
+    </under-censorship>
+  </body>
+</html>
