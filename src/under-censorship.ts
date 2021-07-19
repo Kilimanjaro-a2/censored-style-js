@@ -1,6 +1,7 @@
 import { generateBaseStyle, generateHoverStyle, replaceText } from "./string-util"
 import { censorshipType } from "./types"
 
+document.addEventListener("DOMContentLoaded", () => customElements.define("under-censorship", UnderCensorship))
 class UnderCensorship extends HTMLElement {
     #defaultElement: string = "censored"
     #defaultType: censorshipType = "paint"
@@ -75,8 +76,4 @@ class UnderCensorship extends HTMLElement {
         }
       })
     }
-}
-
-window.onload = () => {
-  customElements.define("under-censorship", UnderCensorship)
 }

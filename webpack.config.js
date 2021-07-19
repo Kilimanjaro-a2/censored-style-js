@@ -17,7 +17,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "main.js"
+    filename: "under-censorship.js"
   },
   devServer: {
     index: "index.html",
