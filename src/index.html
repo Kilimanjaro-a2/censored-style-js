@@ -3,14 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>UnderCensorship.js</title>
-    <script src="main.js" defer></script>
+    
     <style>
       .foo {
         font: 30px;
         color: red;
         background-color: blue;
       }
+      under-censorship:not(:defined) {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
     </style>
+    <script src="main.js"></script>
   </head>
   <body>
     <p class="foo">

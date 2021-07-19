@@ -76,4 +76,7 @@ class UnderCensorship extends HTMLElement {
       })
     }
 }
-customElements.define("under-censorship", UnderCensorship)
+
+window.onload = () => {
+  customElements.define("under-censorship", UnderCensorship)
+}
