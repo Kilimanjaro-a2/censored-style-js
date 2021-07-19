@@ -22,6 +22,7 @@ module.exports = {
   devServer: {
     index: "index.html",
     contentBase: ["./src", "./public"],
+    watchContentBase: true,
     open: true,
     inline: true,
     hot: true
