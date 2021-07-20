@@ -2,7 +2,7 @@ const path = require("path")
 const HTMLPlugin = require("html-webpack-plugin")
 
 module.exports = {
-  entry: "./src/under-censorship.ts",
+  entry: "./src/censored-style.ts",
   module: {
     rules: [
       {
@@ -17,7 +17,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "under-censorship.js"
+    filename: "censored-style.js"
   },
   devServer: {
     index: "index.html",

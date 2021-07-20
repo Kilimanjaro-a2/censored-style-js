@@ -21,23 +21,23 @@ To be added later
 In order to use scripts, you must first load the script and style, for example, in the head tag.
 ```html
 <head>
-  <style rel="under-censorship.css"></style>
-  <script src="under-censorship.js"></script>
+  <style rel="censored-style.css"></style>
+  <script src="censored-style.js"></script>
 </head>
 ```
 
-Within the area enclosed by the under-censorship tag, the under-censorship style can be applied by using specific tags.
+Within the area enclosed by the censored-style tag, the censored-style style can be applied by using specific tags.
 By default, enclosing text with the censored tag will cause the enclosed text to be censored.
 ```html
-<under-censorship>
+<censored-style>
   <p>This is a normal text.</p>
   <p>This is a <censored>censored text</censored>.</p>
-</under-censorship>
+</censored-style>
 ```
 
-You can set the options by specifying arguments to the under-censorship tag.
+You can set the options by specifying arguments to the censored-style tag.
 ```html
-<under-censorship
+<censored-style
   censorship-tag="c"
   censorship-type="blur"
   replace-text="*"
@@ -45,7 +45,7 @@ You can set the options by specifying arguments to the under-censorship tag.
 >
   <p>This is a normal text.</p>
   <p>This is a <c>censored text</c>.</p>
-</under-censorship>
+</censored-style>
 ```
 ## Install
 To be added later
