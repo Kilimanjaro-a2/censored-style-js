@@ -15,20 +15,6 @@
     <script src="censored-style.js"></script>
   </head>
   <body>
-    <p class="foo">
-      testes
-    </p>
-    <censored-style>
-      <p class="foo">
-        testes
-      </p>
-    </censored-style>
-    <censored-style>
-        <p class="foo">
-          <censored>testes</censored>
-        </p>
-    </censored-style>
-
     <censored-style
       censorship-tag="c"
     >
@@ -40,16 +26,6 @@ Of course, it can also be used with <c>Vanilla JS</c>.</p>
     </censored-style>
 
     <h3>There are many different types of Censorship.</h3>
-
-    
-    <ul>
-      <censored-style censorship-type="paint">
-      <li>
-          This is the default <censored>black paint style</censored>.
-      </li>
-      </censored-style>
-    </ul>
-    
 
     <ul>
       <li>
@@ -83,40 +59,23 @@ Of course, it can also be used with <c>Vanilla JS</c>.</p>
         The functionality of CensoredStyle.js is encapsulated in Web Components, so it does not affect existing HTML elements that are not enclosed in &lt;under-censored&gt; tags like
         <censored>this </censored><span class="censored">text</span>.
       </li>
-    </ul>
 
-    <h1>Censored<c>Style</c>.js</h1>
-    <censored-style
-      censorship-tag="c"
-      censorship-type="visible"
-      replace-text="*"
-      replace-repeat="true"
-    >
-      <h1>Censored<c>Style</c>.js</h1>
-    </censored-style>
-    <censored-style
-      censorship-tag="c"
-      censorship-type="paint"
-      replace-text="*"
-      replace-repeat="true"
-    >
-      <h1>Censored<c>Style</c>.js</h1>
-    </censored-style>
-    <censored-style
-      censorship-tag="c"
-      censorship-type="visible"
-      replace-text="[REDACTED]"
-      replace-repeat="true"
-    >
-      <h1>Censored<c>Style</c>.js</h1>
-    </censored-style>
-    <censored-style
-      censorship-tag="c"
-      censorship-type="visible"
-      replace-text="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-      replace-repeat="true"
-    >
-      <h1>Censored<c>Style</c>.js</h1>
-    </censored-style>
+      <li>
+        It is also possible to replace the part you want to censor with any string of text. This is a <censored>censored</censored> text.
+        <censored-style
+          censorship-type="visible"
+          replace-text="*"
+          replace-repeat="true"
+        >
+          <br>(example 1: "censored" => "********") This is a <censored>censored</censored> text.
+        <censored-style
+          censorship-type="visible"
+          replace-text="[CENSORED]"
+          replace-repeat="false"
+        >
+          <br>(example 2: "censored" => "[CENSORED]") This is also a <censored>censored</censored> text.
+        </censored-style>
+      </li>
+    </ul>
   </body>
 </html>
