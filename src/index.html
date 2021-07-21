@@ -5,77 +5,89 @@
     <title>CensoredStyle.js</title>
     
     <style>
-      .foo {
-        font: 30px;
-        color: red;
-        background-color: blue;
+      .body {
+        background-color: lightgray;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      .texts {
+        max-width: 800px;
+        background-color: white;
+        padding: 30px;
+        margin: 10px;
+        filter: drop-shadow(0 0 0.75rem gray);
+        border-radius: 5px;
       }
     </style>
     <style rel="censored-style.css"></style>
     <script src="censored-style.js"></script>
   </head>
-  <body>
-    <censored-style
-      censorship-tag="c"
-    >
-      <h1><c>Censored</c>Style.js</h1>
+  <body class="body">
+    <div class="texts">
+      <censored-style
+        censorship-tag="c"
+      >
+        <h1><c>Censored</c>Style.js</h1>
 
-      <p>CensoredStyle.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
-Since it uses Web Components, it can be used with any framework, including <c>React</c>, <c>Vue</c>, and <c>Svelte</c>.<br>
-Of course, it can also be used with <c>Vanilla JS</c>.</p>
-    </censored-style>
+        <p>CensoredStyle.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
+  Since it uses Web Components, it can be used with any framework, including <c>React</c>, <c>Vue</c>, and <c>Svelte</c>.<br>
+  Of course, it can also be used with <c>Vanilla JS</c>.</p>
+      </censored-style>
 
-    <h3>There are many different types of Censorship.</h3>
+      <h3>There are many different types of Censorship.</h3>
 
-    <ul>
-      <li>
-        <censored-style censorship-type="paint">
-          This is the default <censored style="color: red;">black paint style</censored>.
-        </censored-style>
-      </li>
+      <ul>
+        <li>
+          <censored-style censorship-type="paint">
+            This is the default <censored style="color: red;">black paint style</censored>.
+          </censored-style>
+        </li>
 
-      <li>
-        <censored-style censorship-type="paint" censorship-color="#808080">
-          There are also styles that allow you to <censored>change the color</censored>.
-        </censored-style>
-      </li>
+        <li>
+          <censored-style censorship-type="paint" censorship-color="#808080">
+            There are also styles that allow you to <censored>change the color</censored>.
+          </censored-style>
+        </li>
 
-      <li>
-        <censored-style censorship-type="blur">
-          This is a <censored>blur style</censored>.
-        </censored-style>
-      </li>
-    </ul>
+        <li>
+          <censored-style censorship-type="blur">
+            This is a <censored>blur style</censored>.
+          </censored-style>
+        </li>
+      </ul>
 
-    <h3>Convenient functionalities are also available.</h3>
-    <ul>
-      <li>
-        <censored-style censorship-tag="c">
-          You can change the tags surrounding the text to be <c>censored</c> as you wish.
-        </censored-style>
-      </li>
+      <h3>Convenient functionalities are also available.</h3>
+      <ul>
+        <li>
+          <censored-style censorship-tag="c">
+            You can change the tags surrounding the text to be <c>censored</c> as you wish.
+          </censored-style>
+        </li>
 
-      <li>
-        The functionality of CensoredStyle.js is encapsulated in Web Components, so it does not affect existing HTML elements that are not enclosed in &lt;under-censored&gt; tags like
-        <censored>this </censored><span class="censored">text</span>.
-      </li>
+        <li>
+          The functionality of CensoredStyle.js is encapsulated in Web Components, so it does not affect existing HTML elements that are not enclosed in &lt;under-censored&gt; tags like
+          <censored>this </censored><span class="censored">text</span>.
+        </li>
 
-      <li>
-        It is also possible to replace the part you want to censor with any string of text. This is a <censored>censored</censored> text.
-        <censored-style
-          censorship-type="visible"
-          replace-text="*"
-          replace-repeat="true"
-        >
-          <br>(example 1: "censored" => "********") This is a <censored>censored</censored> text.
-        <censored-style
-          censorship-type="visible"
-          replace-text="[CENSORED]"
-          replace-repeat="false"
-        >
-          <br>(example 2: "censored" => "[CENSORED]") This is also a <censored>censored</censored> text.
-        </censored-style>
-      </li>
-    </ul>
+        <li>
+          It is also possible to replace the part you want to censor with any string of text. This is a <censored>censored</censored> text.
+          <censored-style
+            censorship-type="visible"
+            replace-text="*"
+            replace-repeat="true"
+          >
+            <br>(example 1: "censored" => "********") This is a <censored>censored</censored> text.
+          <censored-style
+            censorship-type="visible"
+            replace-text="[CENSORED]"
+            replace-repeat="false"
+          >
+            <br>(example 2: "censored" => "[CENSORED]") This is also a <censored>censored</censored> text.
+          </censored-style>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>
