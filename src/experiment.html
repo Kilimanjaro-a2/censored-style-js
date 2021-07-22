@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CensoredStyle.js</title>
+    
+    <style>
+      .special-tag {
+        display: inline-block;
+        position: relative;
+      }
+      .marker-line {
+        --line-height: 30%;
+        --line-top: calc((100% - var(--line-height))/2);
+        --line-skew-deg: -10deg;
+        position: absolute;
+        background-color: rgba(0,0,0,0.9);
+        width: 100%;
+        height: var(--line-height);
+        left: 0;
+        top: var(--line-top);
+        box-shadow: 0px 0px 2px 1px;
+        transform: skew(var(--line-skew-deg));
+      }
+      .thin-line {
+        --line-height: 5%;
+        --line-top: calc((100% - var(--line-height))/2);
+        --line-skew-deg: 0deg;
+        position: absolute;
+        background-color: rgba(0,0,0,0.9);
+        width: 100%;
+        height: var(--line-height);
+        left: 0;
+        top: var(--line-top);
+        box-shadow: 0px 0px 2px 1px;
+        transform: skew(var(--line-skew-deg));
+      }
+
+      .caligraphy-line-main {
+        --line-height: 80%;
+        --line-top: calc((100% - var(--line-height))/2);
+        --line-skew-deg: 0deg;
+        --color: rgba(0,0,0,0.1);
+        position: absolute;
+        background-color: var(--color);
+        width: 100%;
+        height: var(--line-height);
+        left: 0;
+        top: var(--line-top);
+        box-shadow: 0px 0px 2px 1px var(--color);
+        transform: skew(var(--line-skew-deg));
+        border-radius: 112px 132px 68px 180px / 60px 85px 77px 90px;
+      }
+      .caligraphy-line-additional1 {
+        --line-height: 50%;
+        --line-top: calc((100% - var(--line-height))/2);
+        --line-skew-deg: -30deg;
+        --random-width: 50%;
+        --random-y: 12%;
+        --random-x: 2%;
+        --color: rgba(0,0,0,0.1);
+        position: absolute;
+        background-color: var(--color);
+        width: var(--random-width);
+        height: var(--line-height);
+        left: calc(var(--random-width) + var(--random-x));
+        top: calc(var(--line-top) + var(--random-y));
+        box-shadow: 0px 0px 2px 1px var(--color);
+        transform: skew(var(--line-skew-deg));
+        border-radius: 112px 132px 68px 180px / 60px 85px 77px 90px;
+      }
+
+      .caligraphy-line-additional2 {
+        --line-height: 40%;
+        --line-top: calc((100% - var(--line-height))/2);
+        --line-skew-deg: 30deg;
+        --random-width: 50%;
+        --random-y: -12%;
+        --random-x: 0%;
+        --color: rgba(0,0,0,0.9);
+        position: absolute;
+        background-color: var(--color);
+        width: var(--random-width);
+        height: var(--line-height);
+        left: calc(var(--random-width) + var(--random-x));
+        top: calc(var(--line-top) + var(--random-y));
+        box-shadow: 0px 0px 2px 1px var(--color);
+        transform: skew(var(--line-skew-deg));
+        border-radius: 112px 132px 68px 180px / 60px 85px 77px 90px;
+      }
+    </style>
+    <style rel="censored-style.css"></style>
+    <script src="censored-style.js"></script>
+  </head>
+  <body class="body">
+    <div class="test">
+      <p>
+        This is a 
+          <span class="special-tag">
+            redacted by marker
+            <span class="marker-line"></span>
+          </span>
+        text.   
+      </p>
+        
+      <p>
+        This is a 
+          <span class="special-tag">
+            redacted by thin marker
+            <span class="thin-line"></span>
+          </span>
+        text.   
+      </p>
+      <p>
+        This is a 
+          <span class="special-tag">
+            redacted by caligraphy like marker
+            <span class="caligraphy-line-main" />
+            <span class="caligraphy-line-additional1" />
+            <span class="caligraphy-line-additional2" />
+          </span>
+        text aaaaaaaaaaaaaaaa.   
+      </p>
+    </div>
+    
+  </body>
+</html>
