@@ -1,4 +1,4 @@
-import { replaceText, generateCss } from "./string-util"
+import { replaceText, generateCss, isTrueAsBoolean } from "./string-util"
 import { censorshipType } from "./types"
 
 const defaultTagName = "being-cencored"
@@ -32,7 +32,7 @@ class CensoredStyle extends HTMLElement {
        */
       const replaceTextAttribute: string = this.getAttribute("replace-text") ?? ""
       const replaceRepeatAttribute: string = this.getAttribute("replace-repeat") ?? ""
-      const replaceRepeat: boolean = replaceRepeatAttribute === "true" || replaceRepeatAttribute === "True"
+      const replaceRepeat: boolean = isTrueAsBoolean(replaceRepeatAttribute)
 
       /*
        * Shadow DOM Manipulation

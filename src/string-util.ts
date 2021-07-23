@@ -58,6 +58,11 @@ export function generateCss (
   return result
 }
 
+export function isTrueAsBoolean (text: string): boolean {
+  const regex = /true/i
+  return regex.test(text)
+}
+
 function markerTemplate (color: string, lineHeightPercentage: number = 80, deg: number = -5): string {
   return `
     .container {
