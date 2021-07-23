@@ -1,4 +1,4 @@
-import { replaceText } from "./string-util"
+import { replaceText, generateCss } from "./string-util"
 import { censorshipType } from "./types"
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 class CensoredStyle extends HTMLElement {
     #defaultElement: string = "censored"
-    #defaultType: censorshipType = "paint"
-    #defaultColor: string = "black"
 
     constructor () {
       /*
@@ -29,13 +27,6 @@ class CensoredStyle extends HTMLElement {
       const censorshipElement: string = this.getAttribute("censorship-tag") ?? this.#defaultElement
 
       /*
-       * Type option
-       */
-      const attrType: string = this.getAttribute("censorship-type") ?? this.#defaultType
-      const typeSet: Set<string> = new Set(["paint", "blur", "visible"]) // TODO: Use TypeScript's type
-      const censorshipType: censorshipType = typeSet.has(attrType) ? attrType as censorshipType : this.#defaultType
-
-      /*
        *  Replace option
        */
       const replaceTextAttribute: string = this.getAttribute("replace-text") ?? ""
@@ -47,10 +38,6 @@ class CensoredStyle extends HTMLElement {
        */
       shadow.appendChild(wrapper)
 
-      /*
-       * Styling
-       */
-      const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
       const foundElements: Element[] = []
       slot.assignedElements().forEach(element => {
         if (element.tagName.toUpperCase() === censorshipElement.toUpperCase()) {
@@ -63,17 +50,17 @@ class CensoredStyle extends HTMLElement {
         }
       })
       foundElements.forEach(element => {
+        let innerText = element.innerHTML
         if (replaceTextAttribute !== "") {
-          element.innerHTML = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)
+          innerText = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)
         }
 
         const span = document.createElement("censored-span")
-        span.setAttribute("censorship-type", censorshipType)
-        span.setAttribute("censorship-color", colorAttribute)
-        span.setAttribute("replace-text", replaceTextAttribute)
-        span.setAttribute("replace-repeat", replaceRepeatAttribute)
+        span.setAttribute("censorship-type", this.getAttribute("censorship-type") ?? "")
+        span.setAttribute("censorship-color", this.getAttribute("censorship-color") ?? "")
         span.setAttribute("active-hover", "true")
-        span.setAttribute("censorship-text", element.innerHTML)
+        span.setAttribute("censorship-text", innerText)
+
         element.replaceWith(span)
         element.innerHTML = ""
       })
@@ -107,13 +94,6 @@ class CensoredSpan extends HTMLElement {
     const censorshipType: censorshipType = typeSet.has(attrType) ? attrType as censorshipType : this.#defaultType
 
     /*
-     *  Replace option
-     */
-    const replaceTextAttribute: string = this.getAttribute("replace-text") ?? ""
-    const replaceRepeatAttribute: string = this.getAttribute("replace-repeat") ?? ""
-    const replaceRepeat: boolean = replaceRepeatAttribute === "true" || replaceRepeatAttribute === "True"
-
-    /*
      * Styling
      */
     const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
@@ -124,32 +104,7 @@ class CensoredSpan extends HTMLElement {
     }
 
     const style: HTMLElement = document.createElement("style")
-    style.textContent = `
-      .container {
-        position: relative;
-        padding: 0;
-        margin: 0;
-      }
-      .paint-span {
-        --line-height: 80%;
-        --line-top: calc((100% - var(--line-height))/2);
-        --line-skew-deg: -8deg;
-        position: absolute;
-        display: inline-block;
-        width: 100%;
-        height: var(--line-height);
-        top: var(--line-top);
-        left: 0;
-        
-        background-color: rgba(0,0,0,0.1);
-        box-shadow: 0px 0px 2px 1px;
-        border-radius: 3px;
-      }
-      .paint-span:hover {
-        display: none;
-        width: 0%;
-      }
-    `
+    style.textContent = generateCss(censorshipType, colorAttribute)
 
     /*
      * Shadow DOM Manipulation

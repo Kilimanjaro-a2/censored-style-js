@@ -62,3 +62,52 @@ export function replaceText (
   }
   return result
 }
+
+export function generateCss (
+  censorshipType: censorshipType,
+  censorshipColor: string = "black"
+): string {
+  let result = ""
+  switch (censorshipType) {
+    case "paint":
+      {
+        const color = validateColor(censorshipColor) ? censorshipColor : "black"
+        result = `
+          .container {
+            position: relative;
+            padding: 0;
+            margin: 0;
+          }
+          .paint-span {
+            --line-height: 80%;
+            --line-top: calc((100% - var(--line-height))/2);
+            --line-skew-deg: -8deg;
+            --color: ${color};
+            position: absolute;
+            display: inline-block;
+            width: 100%;
+            height: var(--line-height);
+            top: var(--line-top);
+            left: 0;
+            
+            background-color: var(--color);
+            box-shadow: 0px 0px 2px 1px var(--color);
+            border-radius: 3px;
+          }
+          .paint-span:hover {
+            display: none;
+            width: 0%;
+          }
+      `
+      }
+      break
+    case "blur":
+      result = `filter: blur(2px);`
+      break
+    case "visible":
+      /* FALLTHROUGH */
+    default:
+      break
+  }
+  return result
+}
