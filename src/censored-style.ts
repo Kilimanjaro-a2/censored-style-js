@@ -69,7 +69,7 @@ class CensoredStyle extends HTMLElement {
 }
 
 class BeingCensored extends HTMLElement {
-  #defaultType: censorshipType = "paint"
+  #defaultType: censorshipType = "marker"
   #defaultColor: string = "black"
 
   constructor () {
@@ -91,8 +91,7 @@ class BeingCensored extends HTMLElement {
      * Type option
      */
     const attrType: string = this.getAttribute("censorship-type") ?? this.#defaultType
-    const typeSet: Set<string> = new Set(["paint", "blur", "visible"]) // TODO: Use TypeScript's type
-    const censorshipType: censorshipType = typeSet.has(attrType) ? attrType as censorshipType : this.#defaultType
+    const censorshipType: censorshipType = attrType as censorshipType ?? this.#defaultType
 
     /*
      * Styling

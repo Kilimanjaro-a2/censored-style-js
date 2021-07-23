@@ -1,1 +1,1 @@
-export type censorshipType = "paint" | "blur" | "visible"
+export type censorshipType = "marker" | "strikethrough" | "blur" | "visible"
