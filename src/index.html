@@ -12,7 +12,7 @@
         flex-direction: column;
         align-items: center;
       }
-      .texts {
+      .paper {
         max-width: 800px;
         background-color: white;
         padding: 30px;
@@ -24,11 +24,11 @@
     <script src="censored-style.js"></script>
   </head>
   <body class="body">
-    <div class="texts">
+    <div class="paper">
       <censored-style
         censorship-tag="c"
       >
-        <h1><c>Censored</c>Style.js</h1>
+        <h1>Hello <c>Censored</c>Style.js!</h1>
 
         <p>CensoredStyle.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
   Since it uses Web Components, it can be used with any framework, including <c>React</c>, <c>Vue</c>, and <c>Svelte</c>.<br>
@@ -66,7 +66,7 @@
         </li>
 
         <li>
-          The functionality of CensoredStyle.js is encapsulated in Web Components, so it does not affect existing HTML elements that are not enclosed in &lt;under-censored&gt; tags like
+          The functionality of CensoredStyle.js is encapsulated in Web Components, so it does not affect existing HTML elements that are not enclosed in &lt;censored-style&gt; tags like
           <censored>this </censored><span class="censored">text</span>.
         </li>
 

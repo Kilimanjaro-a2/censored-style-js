@@ -1,9 +1,10 @@
 import { replaceText, generateCss } from "./string-util"
 import { censorshipType } from "./types"
 
+const defaultTagName = "being-cencored"
 document.addEventListener("DOMContentLoaded", () => {
   customElements.define("censored-style", CensoredStyle)
-  customElements.define("censored-span", CensoredSpan)
+  customElements.define(defaultTagName, BeingCensored)
 })
 
 class CensoredStyle extends HTMLElement {
@@ -55,7 +56,7 @@ class CensoredStyle extends HTMLElement {
           innerText = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)
         }
 
-        const span = document.createElement("censored-span")
+        const span = document.createElement(defaultTagName)
         span.setAttribute("censorship-type", this.getAttribute("censorship-type") ?? "")
         span.setAttribute("censorship-color", this.getAttribute("censorship-color") ?? "")
         span.setAttribute("active-hover", "true")
@@ -67,7 +68,7 @@ class CensoredStyle extends HTMLElement {
     }
 }
 
-class CensoredSpan extends HTMLElement {
+class BeingCensored extends HTMLElement {
   #defaultType: censorshipType = "paint"
   #defaultColor: string = "black"
 
