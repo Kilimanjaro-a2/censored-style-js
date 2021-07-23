@@ -20,6 +20,32 @@
         filter: drop-shadow(0 0 0.75rem gray);
         border-radius: 5px;
       }
+
+      .container {
+        position: relative;
+        padding: 0;
+        margin: 0;
+      }
+      .paint-span {
+        --line-height: 80%;
+        --line-top: calc((100% - var(--line-height))/2);
+        --line-skew-deg: -8deg;
+        position: absolute;
+        display: inline-block;
+        width: 100%;
+        height: var(--line-height);
+        top: var(--line-top);
+        left: 0;
+        
+        background-color: rgba(0,0,0,0.1);
+        box-shadow: 0px 0px 2px 1px;
+        border-radius: 3px;
+      }
+      .paint-span:hover {
+        display: none;
+        width: 0%;
+      }
+  
     </style>
     <link rel="stylesheet" href="censored-style.css"></link>
     <script src="censored-style.js"></script>
@@ -27,6 +53,9 @@
   <body class="body">
     <div class="texts">
       <h3>Component Test</h3>
+      <p>
+        This is a <span class="container">text<span class="paint-span"></span></span>. This is a text.
+      </p>
       <p>
         This is a <censored-span censorship-text="test"></censored-span>. This is a text.
       </p>

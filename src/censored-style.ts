@@ -127,6 +127,8 @@ class CensoredSpan extends HTMLElement {
     style.textContent = `
       .container {
         position: relative;
+        padding: 0;
+        margin: 0;
       }
       .paint-span {
         --line-height: 80%;
@@ -138,12 +140,14 @@ class CensoredSpan extends HTMLElement {
         height: var(--line-height);
         top: var(--line-top);
         left: 0;
-        // transform: skew(-20deg);
         
-        background-color: rgba(0,0,0,1);
+        background-color: rgba(0,0,0,0.1);
         box-shadow: 0px 0px 2px 1px;
         border-radius: 3px;
-        padding: 0 0.7em;
+      }
+      .paint-span:hover {
+        display: none;
+        width: 0%;
       }
     `
 
