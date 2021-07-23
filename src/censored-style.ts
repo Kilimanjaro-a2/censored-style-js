@@ -68,13 +68,14 @@ class CensoredStyle extends HTMLElement {
         }
 
         const span = document.createElement("censored-span")
-        span.innerHTML = element.innerHTML
         span.setAttribute("censorship-type", censorshipType)
         span.setAttribute("censorship-color", colorAttribute)
         span.setAttribute("replace-text", replaceTextAttribute)
         span.setAttribute("replace-repeat", replaceRepeatAttribute)
         span.setAttribute("active-hover", "true")
+        span.setAttribute("censorship-text", element.innerHTML)
         element.replaceWith(span)
+        element.innerHTML = ""
       })
     }
 }
@@ -90,12 +91,11 @@ class CensoredSpan extends HTMLElement {
     super()
     const shadow: ShadowRoot = this.attachShadow({ mode: "open" })
     const wrapper: HTMLElement = document.createElement("span")
-    const slot: HTMLSlotElement = document.createElement("slot")
     const paintSpan: HTMLElement = document.createElement("span")
 
     wrapper.setAttribute("class", "container")
     wrapper.setAttribute("ontouchstart", "")
-    wrapper.appendChild(slot)
+    wrapper.innerText = this.getAttribute("censorship-text") ?? ""
     paintSpan.setAttribute("class", "paint-span")
     wrapper.appendChild(paintSpan)
 
@@ -119,8 +119,8 @@ class CensoredSpan extends HTMLElement {
     const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
     const invokesHoverEvent = true // TODO: implement as attribute
     if (invokesHoverEvent) {
-      wrapper.addEventListener("mouseover", _ => wrapper.setAttribute("style", "display: none;"), false) // TODO: implement
-      wrapper.addEventListener("mouseout", _ => wrapper.setAttribute("style", "display: inline-block;"), false)
+      wrapper.addEventListener("mouseover", _ => paintSpan.setAttribute("style", "display: none;"), false) // TODO: implement
+      wrapper.addEventListener("mouseout", _ => paintSpan.setAttribute("style", "display: inline-block;"), false)
     }
 
     const style: HTMLElement = document.createElement("style")
@@ -133,12 +133,12 @@ class CensoredSpan extends HTMLElement {
         --line-top: calc((100% - var(--line-height))/2);
         --line-skew-deg: -8deg;
         position: absolute;
-        display: block;
+        display: inline-block;
         width: 100%;
         height: var(--line-height);
         top: var(--line-top);
         left: 0;
-        transform: skew(-20deg);
+        // transform: skew(-20deg);
         
         background-color: rgba(0,0,0,1);
         box-shadow: 0px 0px 2px 1px;
