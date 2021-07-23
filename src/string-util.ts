@@ -47,6 +47,7 @@ export function generateCss (
             padding: 0;
             margin: 0;
             filter: blur(2px);
+            transition: all 0.5s 0s ease;
           }
           `
         const hover = willHover
@@ -92,14 +93,17 @@ function markerTemplate (willHober: boolean, color: string, lineHeightPercentage
       background-color: var(--color);
       box-shadow: 0px 0px 2px 1px var(--color);
       border-radius: 3px;
+
+      transition: all 0.5s 0s ease;
     }
 
   `
   const hover: string = willHober
     ? `
     .paint-span:hover {
-      display: none;
-      width: 0%;
+      color: unset;
+      background-color: unset;
+      box-shadow: 0px 0px 2px 1px transparent;
     }`
     : ""
 

@@ -19,7 +19,6 @@ class CensoredStyle extends HTMLElement {
       const wrapper: HTMLElement = document.createElement("span")
       const slot: HTMLSlotElement = document.createElement("slot")
       wrapper.setAttribute("class", "container")
-      wrapper.setAttribute("ontouchstart", "")
       wrapper.appendChild(slot)
 
       /*
@@ -84,7 +83,6 @@ class BeingCensored extends HTMLElement {
     const paintSpan: HTMLElement = document.createElement("span")
 
     wrapper.setAttribute("class", "container")
-    wrapper.setAttribute("ontouchstart", "")
     wrapper.innerText = this.getAttribute("censorship-text") ?? ""
     paintSpan.setAttribute("class", "paint-span")
     wrapper.appendChild(paintSpan)
@@ -111,11 +109,6 @@ class BeingCensored extends HTMLElement {
      * Styling
      */
     const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
-    if (dissapearOnHover) {
-      wrapper.addEventListener("mouseover", _ => paintSpan.setAttribute("style", "display: none;"), false) // TODO: implement
-      wrapper.addEventListener("mouseout", _ => paintSpan.setAttribute("style", "display: inline-block;"), false)
-    }
-
     const style: HTMLElement = document.createElement("style")
     style.textContent = generateCss(censorshipType, colorAttribute, dissapearOnHover)
 
