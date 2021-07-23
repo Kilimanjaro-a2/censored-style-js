@@ -22,33 +22,40 @@ export function replaceText (
 
 export function generateCss (
   censorshipType: censorshipType,
-  censorshipColor: string = "black"
+  censorshipColor: string = "black",
+  willHover: boolean = true
 ): string {
   let result = ""
   switch (censorshipType) {
     case "marker":
       {
         const color = validateColor(censorshipColor) ? censorshipColor : "black"
-        result = markerTemplate(color, 80)
+        result = markerTemplate(willHover, color, 80)
       }
       break
     case "strikethrough":
       {
         const color = validateColor(censorshipColor) ? censorshipColor : "black"
-        result = markerTemplate(color, 20, 0)
+        result = markerTemplate(willHover, color, 20, 0)
       }
       break
     case "blur":
-      result = `
-        .container {
-          position: relative;
-          padding: 0;
-          margin: 0;
-          filter: blur(2px);
-        }
-        .container:hover {
-          filter: none;
-        }`
+      {
+        const base = `
+          .container {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            filter: blur(2px);
+          }
+          `
+        const hover = willHover
+          ? `.container:hover {
+            filter: none;
+          }`
+          : ""
+        result = base + hover
+      }
       break
     case "visible":
       /* FALLTHROUGH */
@@ -63,8 +70,8 @@ export function isTrueAsBoolean (text: string): boolean {
   return regex.test(text)
 }
 
-function markerTemplate (color: string, lineHeightPercentage: number = 80, deg: number = -5): string {
-  return `
+function markerTemplate (willHober: boolean, color: string, lineHeightPercentage: number = 80, deg: number = -5): string {
+  const base: string = `
     .container {
       position: relative;
       padding: 0;
@@ -86,9 +93,15 @@ function markerTemplate (color: string, lineHeightPercentage: number = 80, deg: 
       box-shadow: 0px 0px 2px 1px var(--color);
       border-radius: 3px;
     }
+
+  `
+  const hover: string = willHober
+    ? `
     .paint-span:hover {
       display: none;
       width: 0%;
-    }
-  `
+    }`
+    : ""
+
+  return base + hover
 }

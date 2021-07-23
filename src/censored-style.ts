@@ -59,6 +59,7 @@ class CensoredStyle extends HTMLElement {
         const span = document.createElement(defaultTagName)
         span.setAttribute("censorship-type", this.getAttribute("censorship-type") ?? "")
         span.setAttribute("censorship-color", this.getAttribute("censorship-color") ?? "")
+        span.setAttribute("dissapear-on-hover", this.getAttribute("dissapear-on-hover") ?? "")
         span.setAttribute("active-hover", "true")
         span.setAttribute("censorship-text", innerText)
 
@@ -71,6 +72,7 @@ class CensoredStyle extends HTMLElement {
 class BeingCensored extends HTMLElement {
   #defaultType: censorshipType = "marker"
   #defaultColor: string = "black"
+  #defaultHoverDissapearing: string = "true"
 
   constructor () {
     /*
@@ -97,17 +99,25 @@ class BeingCensored extends HTMLElement {
     const censorshipType: censorshipType = attrType as censorshipType ?? this.#defaultType
 
     /*
+     * Type option
+     */
+    let attrHover: string = this.getAttribute("dissapear-on-hover") ?? this.#defaultHoverDissapearing
+    if (attrHover === "") {
+      attrHover = this.#defaultHoverDissapearing
+    }
+    const dissapearOnHover: boolean = isTrueAsBoolean(attrHover)
+
+    /*
      * Styling
      */
     const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
-    const invokesHoverEvent = true // TODO: implement as attribute
-    if (invokesHoverEvent) {
+    if (dissapearOnHover) {
       wrapper.addEventListener("mouseover", _ => paintSpan.setAttribute("style", "display: none;"), false) // TODO: implement
       wrapper.addEventListener("mouseout", _ => paintSpan.setAttribute("style", "display: inline-block;"), false)
     }
 
     const style: HTMLElement = document.createElement("style")
-    style.textContent = generateCss(censorshipType, colorAttribute)
+    style.textContent = generateCss(censorshipType, colorAttribute, dissapearOnHover)
 
     /*
      * Shadow DOM Manipulation
