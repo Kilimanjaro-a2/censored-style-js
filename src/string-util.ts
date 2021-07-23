@@ -30,13 +30,13 @@ export function generateCss (
     case "marker":
       {
         const color = validateColor(censorshipColor) ? censorshipColor : "black"
-        result = markerTemplate(willHover, color, 80)
+        result = markerTemplate(color, willHover, 80, getRandomArbitrary(-1.3, 1.3), getRandomArbitrary(-1, 1))
       }
       break
     case "strikethrough":
       {
         const color = validateColor(censorshipColor) ? censorshipColor : "black"
-        result = markerTemplate(willHover, color, 20, 0)
+        result = markerTemplate(color, willHover, 20, 0, 0)
       }
       break
     case "blur":
@@ -71,7 +71,13 @@ export function isTrueAsBoolean (text: string): boolean {
   return regex.test(text)
 }
 
-function markerTemplate (willHober: boolean, color: string, lineHeightPercentage: number = 80, deg: number = -5): string {
+function markerTemplate (
+  color: string,
+  willHober: boolean = true,
+  lineHeightPercentage: number = 80,
+  rotationDeg: number = 0,
+  skewDeg: number = 0
+): string {
   const base: string = `
     .container {
       position: relative;
@@ -81,7 +87,8 @@ function markerTemplate (willHober: boolean, color: string, lineHeightPercentage
     .paint-span {
       --line-height: ${lineHeightPercentage}%;
       --line-top: calc((100% - var(--line-height))/2);
-      --line-skew-deg: ${deg}deg;
+      --line-rotation: ${rotationDeg}deg;
+      --line-skew: ${skewDeg}deg;
       --color: ${color};
       position: absolute;
       display: inline-block;
@@ -89,6 +96,7 @@ function markerTemplate (willHober: boolean, color: string, lineHeightPercentage
       height: var(--line-height);
       top: var(--line-top);
       left: 0;
+      transform: rotate(var(--line-rotation)) skew(var(--line-skew));
       
       background-color: var(--color);
       box-shadow: 0px 0px 2px 1px var(--color);
@@ -108,4 +116,8 @@ function markerTemplate (willHober: boolean, color: string, lineHeightPercentage
     : ""
 
   return base + hover
+}
+
+function getRandomArbitrary (min: number, max: number) {
+  return Math.random() * (max - min) + min
 }
