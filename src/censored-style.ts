@@ -1,7 +1,11 @@
-import { generateBaseStyle, generateHoverStyle, replaceText } from "./string-util"
+import { replaceText } from "./string-util"
 import { censorshipType } from "./types"
 
-document.addEventListener("DOMContentLoaded", () => customElements.define("censored-style", CensoredStyle))
+document.addEventListener("DOMContentLoaded", () => {
+  customElements.define("censored-style", CensoredStyle)
+  customElements.define("censored-span", CensoredSpan)
+})
+
 class CensoredStyle extends HTMLElement {
     #defaultElement: string = "censored"
     #defaultType: censorshipType = "paint"
@@ -47,8 +51,6 @@ class CensoredStyle extends HTMLElement {
        * Styling
        */
       const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
-      const invokesHoverEvent = true // TODO: implement as attribute
-
       const foundElements: Element[] = []
       slot.assignedElements().forEach(element => {
         if (element.tagName.toUpperCase() === censorshipElement.toUpperCase()) {
@@ -60,20 +62,95 @@ class CensoredStyle extends HTMLElement {
           foundElements.push(nestedElement)
         }
       })
-
-      const baseStyleString = generateBaseStyle(censorshipType, colorAttribute)
-      const hoverStyleString = invokesHoverEvent ? generateHoverStyle(censorshipType) : ""
       foundElements.forEach(element => {
-        element.setAttribute("style", baseStyleString)
-
-        if (invokesHoverEvent) {
-          element.addEventListener("mouseover", _ => element.setAttribute("style", hoverStyleString), false)
-          element.addEventListener("mouseout", _ => element.setAttribute("style", baseStyleString), false)
-        }
-
         if (replaceTextAttribute !== "") {
           element.innerHTML = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)
         }
+
+        const span = document.createElement("censored-span")
+        span.innerHTML = element.innerHTML
+        span.setAttribute("censorship-type", censorshipType)
+        span.setAttribute("censorship-color", colorAttribute)
+        span.setAttribute("replace-text", replaceTextAttribute)
+        span.setAttribute("replace-repeat", replaceRepeatAttribute)
+        span.setAttribute("active-hover", "true")
+        element.replaceWith(span)
       })
     }
+}
+
+class CensoredSpan extends HTMLElement {
+  #defaultType: censorshipType = "paint"
+  #defaultColor: string = "black"
+
+  constructor () {
+    /*
+     * Initialize
+     */
+    super()
+    const shadow: ShadowRoot = this.attachShadow({ mode: "open" })
+    const wrapper: HTMLElement = document.createElement("span")
+    const slot: HTMLSlotElement = document.createElement("slot")
+    const paintSpan: HTMLElement = document.createElement("span")
+
+    wrapper.setAttribute("class", "container")
+    wrapper.setAttribute("ontouchstart", "")
+    wrapper.appendChild(slot)
+    paintSpan.setAttribute("class", "paint-span")
+    wrapper.appendChild(paintSpan)
+
+    /*
+     * Type option
+     */
+    const attrType: string = this.getAttribute("censorship-type") ?? this.#defaultType
+    const typeSet: Set<string> = new Set(["paint", "blur", "visible"]) // TODO: Use TypeScript's type
+    const censorshipType: censorshipType = typeSet.has(attrType) ? attrType as censorshipType : this.#defaultType
+
+    /*
+     *  Replace option
+     */
+    const replaceTextAttribute: string = this.getAttribute("replace-text") ?? ""
+    const replaceRepeatAttribute: string = this.getAttribute("replace-repeat") ?? ""
+    const replaceRepeat: boolean = replaceRepeatAttribute === "true" || replaceRepeatAttribute === "True"
+
+    /*
+     * Styling
+     */
+    const colorAttribute: string = this.getAttribute("censorship-color") ?? this.#defaultColor
+    const invokesHoverEvent = true // TODO: implement as attribute
+    if (invokesHoverEvent) {
+      wrapper.addEventListener("mouseover", _ => wrapper.setAttribute("style", "display: none;"), false) // TODO: implement
+      wrapper.addEventListener("mouseout", _ => wrapper.setAttribute("style", "display: inline-block;"), false)
+    }
+
+    const style: HTMLElement = document.createElement("style")
+    style.textContent = `
+      .container {
+        position: relative;
+      }
+      .paint-span {
+        --line-height: 80%;
+        --line-top: calc((100% - var(--line-height))/2);
+        --line-skew-deg: -8deg;
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: var(--line-height);
+        top: var(--line-top);
+        left: 0;
+        transform: skew(-20deg);
+        
+        background-color: rgba(0,0,0,1);
+        box-shadow: 0px 0px 2px 1px;
+        border-radius: 3px;
+        padding: 0 0.7em;
+      }
+    `
+
+    /*
+     * Shadow DOM Manipulation
+     */
+    shadow.append(style)
+    shadow.appendChild(wrapper)
+  }
 }

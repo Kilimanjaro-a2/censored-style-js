@@ -3,7 +3,13 @@
   "name": "censored-style.js",
   "description": "A Web Component that allows you to easily apply styles that look as if they are being censored",
   "version": "1.0.0",
-  "keywords": ["Censorship", "Style", "Web Components", "Censored", "Redacted"],
+  "keywords": [
+    "Censorship",
+    "Style",
+    "Web Components",
+    "Censored",
+    "Redacted"
+  ],
   "author": "Kilimanjaro-a2",
   "repository": {
     "type": "git",

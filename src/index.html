@@ -20,21 +20,45 @@
         filter: drop-shadow(0 0 0.75rem gray);
         border-radius: 5px;
       }
-      .test {
-        box-shadow: 0px 0px 5px -5px black inset, 0px 8px 4px -8px black;
-      }
     </style>
-    <style rel="censored-style.css"></style>
+    <link rel="stylesheet" href="censored-style.css"></link>
     <script src="censored-style.js"></script>
   </head>
   <body class="body">
     <div class="texts">
-      <div class="test">
-        <p>
-          This is a test.
-        </p>
-      </div>
+      <h3>Component Test</h3>
+      <p>
+        This is a <censored-span>test</censored-span>.
+      </p>
+      <p>
+        <censored-style
+          censorship-tag="c"
+        >
+          This is a <c>test</c>.
+        </censored-style>
+      </p>
 
+
+      <!-- <h3>marker-line4</h3>
+      <p>
+        This is a 
+          <censored-style>
+            <tes class="marker-line">redacted<testes class="line-body"></testse></tes>
+            <tes class="marker-line">by<testes class="line-body"></testes></tes>
+            <span class="marker-line">marker<span class="line-body"></span></span>
+            <span class="marker-line">text.<span class="line-body"></span></span>
+            <br>
+            <span class="marker-line">This<span class="line-body"></span></span>
+            <span class="marker-line">is<span class="line-body"></span></span>
+            <span class="marker-line">a<span class="line-body"></span></span>
+            <span class="marker-line">redacted<span class="line-body"></span></span>
+            <span class="marker-line">by<span class="line-body"></span></span>
+            <span class="marker-line">marker<span class="line-body"></span></span>
+            <span class="marker-line">text.<span class="line-body"></span></span>
+          </censored-style>
+        <br>
+        This is a redacted by marker text.
+      </p> -->
 
       <censored-style
         censorship-tag="c"
