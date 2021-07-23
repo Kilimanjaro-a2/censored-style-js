@@ -20,75 +20,12 @@
         filter: drop-shadow(0 0 0.75rem gray);
         border-radius: 5px;
       }
-
-      .container {
-        position: relative;
-        padding: 0;
-        margin: 0;
-      }
-      .paint-span {
-        --line-height: 80%;
-        --line-top: calc((100% - var(--line-height))/2);
-        --line-skew-deg: -8deg;
-        position: absolute;
-        display: inline-block;
-        width: 100%;
-        height: var(--line-height);
-        top: var(--line-top);
-        left: 0;
-        
-        background-color: rgba(0,0,0,0.1);
-        box-shadow: 0px 0px 2px 1px;
-        border-radius: 3px;
-      }
-      .paint-span:hover {
-        display: none;
-        width: 0%;
-      }
-  
     </style>
     <link rel="stylesheet" href="censored-style.css"></link>
     <script src="censored-style.js"></script>
   </head>
   <body class="body">
     <div class="texts">
-      <h3>Component Test</h3>
-      <p>
-        This is a <span class="container">text<span class="paint-span"></span></span>. This is a text.
-      </p>
-      <p>
-        This is a <censored-span censorship-text="test"></censored-span>. This is a text.
-      </p>
-      <p>
-        <censored-style
-          censorship-tag="c"
-        >
-          This is a <c>text text text!!</c>. This is a text.
-        </censored-style>
-      </p>
-
-
-      <!-- <h3>marker-line4</h3>
-      <p>
-        This is a 
-          <censored-style>
-            <tes class="marker-line">redacted<testes class="line-body"></testse></tes>
-            <tes class="marker-line">by<testes class="line-body"></testes></tes>
-            <span class="marker-line">marker<span class="line-body"></span></span>
-            <span class="marker-line">text.<span class="line-body"></span></span>
-            <br>
-            <span class="marker-line">This<span class="line-body"></span></span>
-            <span class="marker-line">is<span class="line-body"></span></span>
-            <span class="marker-line">a<span class="line-body"></span></span>
-            <span class="marker-line">redacted<span class="line-body"></span></span>
-            <span class="marker-line">by<span class="line-body"></span></span>
-            <span class="marker-line">marker<span class="line-body"></span></span>
-            <span class="marker-line">text.<span class="line-body"></span></span>
-          </censored-style>
-        <br>
-        This is a redacted by marker text.
-      </p> -->
-
       <censored-style
         censorship-tag="c"
       >
@@ -142,12 +79,13 @@
             replace-repeat="true"
           >
             <br>(example 1: "censored" => "********") This is a <censored>censored</censored> text.
+          </censored-style>
           <censored-style
             censorship-type="visible"
-            replace-text="[CENSORED]"
+            replace-text="[REDACTED]"
             replace-repeat="false"
           >
-            <br>(example 2: "censored" => "[CENSORED]") This is also a <censored>censored</censored> text.
+            <br>(example 2: "censored" => "[REDACTED]") This is also a <censored>censored</censored> text.
           </censored-style>
         </li>
       </ul>

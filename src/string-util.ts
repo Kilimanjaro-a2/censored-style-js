@@ -102,7 +102,16 @@ export function generateCss (
       }
       break
     case "blur":
-      result = `filter: blur(2px);`
+      result = `
+        .container {
+          position: relative;
+          padding: 0;
+          margin: 0;
+          filter: blur(2px);
+        }
+        .container:hover {
+          filter: none;
+        }`
       break
     case "visible":
       /* FALLTHROUGH */
