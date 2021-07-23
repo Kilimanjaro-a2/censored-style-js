@@ -90,7 +90,10 @@ class BeingCensored extends HTMLElement {
     /*
      * Type option
      */
-    const attrType: string = this.getAttribute("censorship-type") ?? this.#defaultType
+    let attrType: string = this.getAttribute("censorship-type") ?? this.#defaultType
+    if (attrType === "") {
+      attrType = this.#defaultType
+    }
     const censorshipType: censorshipType = attrType as censorshipType ?? this.#defaultType
 
     /*
