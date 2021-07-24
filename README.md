@@ -1,14 +1,13 @@
-UnderCensored.js
+CensoredStyle.js
 ====
-UnderCensored.js is a Web Component that allows you to easily apply styles that look as if they are being censored
+CensoredStyle.js is a Web Component that allows you to easily apply styles that look as if they are being censored
 
 ## Description
 This is a script that makes areas marked up with certain tags look as if they are being censored.
 
-(Note) This script is a joke application.
+### Notes 
+This script is intended to change the style, not to really censor and remove strings.
 It only applies styles and does not actually delete information, so censored information can be easily restored.
-
-
 **Do not use it to hide sensitive information.**
 
 ## Demo
@@ -18,10 +17,9 @@ To be added later
 To be added later
 
 ## Usage
-In order to use scripts, you must first load the script and style, for example, in the head tag.
+In order to use scripts, you must first load the script, for example, in the head tag.
 ```html
 <head>
-  <style rel="censored-style.css"></style>
   <script src="censored-style.js"></script>
 </head>
 ```
@@ -54,7 +52,7 @@ To be added later
 To be added later
 
 ## Licence
-To be added later
+MIT License
 
 ## Author
 

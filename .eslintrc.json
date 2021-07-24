@@ -14,7 +14,7 @@
     "plugins": [
         "@typescript-eslint"
     ],
-    "ignorePatterns": ["**/public/*.js"],
+    "ignorePatterns": ["**/public/*", "**/src/*.html"],
     "rules": {
         "semi": ["error", "never"],
         "no-undef": "off",
