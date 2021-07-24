@@ -42,7 +42,7 @@ export function generateCss (
     case "blur":
       {
         const base = `
-          .container {
+          .wrapper .container {
             position: relative;
             padding: 0;
             margin: 0;
@@ -51,7 +51,7 @@ export function generateCss (
           }
           `
         const hover = willHover
-          ? `.container:hover {
+          ? `.wrapper:hover .container {
             filter: none;
           }`
           : ""
@@ -84,7 +84,7 @@ function markerTemplate (
       padding: 0;
       margin: 0;
     }
-    .paint-span {
+    .wrapper .paint-span {
       --line-height: ${lineHeightPercentage}%;
       --line-top: calc((100% - var(--line-height))/2);
       --line-rotation: ${rotationDeg}deg;
@@ -100,18 +100,18 @@ function markerTemplate (
       
       background-color: var(--color);
       box-shadow: 0px 0px 2px 1px var(--color);
-      border-radius: 3px;
+      border-radius: 1px;
 
-      transition: all 0.5s 0s ease;
+      transform: scaleY(1);
+      transform-origin: bottom;
+      transition: transform 300ms;
     }
 
   `
   const hover: string = willHober
     ? `
-    .paint-span:hover {
-      color: unset;
-      background-color: unset;
-      box-shadow: 0px 0px 2px 1px transparent;
+    .wrapper:hover .paint-span {
+      transform: scaleY(0);
     }`
     : ""
 
@@ -124,8 +124,6 @@ function getRandomArbitrary (min: number, max: number) {
 
 export function toWordArray (text: string): string[] {
   const array = text.split(" ").map(word => word + " ")
-  const lastWord = array[array.length - 1].slice(0, -1)
-  console.log(lastWord)
-  array[array.length - 1] = lastWord
+  array[array.length - 1] = array[array.length - 1].slice(0, -1)
   return array
 }
