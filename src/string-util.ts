@@ -1,4 +1,5 @@
 import validateColor from "validate-color"
+import filterXSS from "xss"
 import { censorshipType } from "./types"
 
 export function replaceText (
@@ -123,7 +124,12 @@ function getRandomArbitrary (min: number, max: number) {
 }
 
 export function toWordArray (text: string): string[] {
+  text = sanitize(text)
   const array = text.split(" ").map(word => word + " ")
   array[array.length - 1] = array[array.length - 1].slice(0, -1)
   return array
+}
+
+export function sanitize (text: string): string {
+  return filterXSS(text)
 }

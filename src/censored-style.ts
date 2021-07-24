@@ -1,4 +1,4 @@
-import { replaceText, generateCss, isTrueAsBoolean, toWordArray } from "./string-util"
+import { replaceText, generateCss, isTrueAsBoolean, toWordArray, sanitize } from "./string-util"
 import { censorshipType } from "./types"
 
 const defaultTagName = "being-censored"
@@ -24,14 +24,13 @@ class CensoredStyle extends HTMLElement {
       /*
        * Tag option
        */
-      const censorshipElement: string = this.getAttribute("censorship-tag") ?? this.#defaultElement
+      const censorshipElement: string = sanitize(this.getAttribute("censorship-tag") ?? this.#defaultElement)
 
       /*
        *  Replace option
        */
-      const replaceTextAttribute: string = this.getAttribute("replace-text") ?? ""
-      const replaceRepeatAttribute: string = this.getAttribute("replace-repeat") ?? ""
-      const replaceRepeat: boolean = isTrueAsBoolean(replaceRepeatAttribute)
+      const replaceTextAttribute: string = sanitize(this.getAttribute("replace-text") ?? "")
+      const replaceRepeat: boolean = isTrueAsBoolean(this.getAttribute("replace-repeat") ?? "")
 
       /*
        * Shadow DOM Manipulation
@@ -50,7 +49,7 @@ class CensoredStyle extends HTMLElement {
         }
       })
       foundElements.forEach(element => {
-        let innerText = element.innerHTML
+        let innerText = sanitize(element.innerHTML)
         if (replaceTextAttribute !== "") {
           innerText = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)
         }
@@ -81,7 +80,7 @@ class BeingCensored extends HTMLElement {
     const shadow: ShadowRoot = this.attachShadow({ mode: "open" })
     const wrapper: HTMLElement = document.createElement("span")
 
-    const attrText = this.getAttribute("censorship-text") ?? ""
+    const attrText = sanitize(this.getAttribute("censorship-text") ?? "")
     const splitTexts = toWordArray(attrText)
     splitTexts.forEach(text => {
       const containerSpan: HTMLElement = document.createElement("span")
