@@ -1,6 +1,6 @@
-CensoredStyle.js
+censored-style.js
 ====
-CensoredStyle.js is a Web Component that allows you to easily apply styles that look as if they are being censored
+censored-style.js is a Web Component that allows you to easily apply styles that look as if they are being censored
 
 ## Description
 This is a script that makes areas marked up with certain tags look as if they are being censored.
