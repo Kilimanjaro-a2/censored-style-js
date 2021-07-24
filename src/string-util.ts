@@ -121,3 +121,11 @@ function markerTemplate (
 function getRandomArbitrary (min: number, max: number) {
   return Math.random() * (max - min) + min
 }
+
+export function toWordArray (text: string): string[] {
+  const array = text.split(" ").map(word => word + " ")
+  const lastWord = array[array.length - 1].slice(0, -1)
+  console.log(lastWord)
+  array[array.length - 1] = lastWord
+  return array
+}

@@ -1,7 +1,7 @@
-import { replaceText, generateCss, isTrueAsBoolean } from "./string-util"
+import { replaceText, generateCss, isTrueAsBoolean, toWordArray } from "./string-util"
 import { censorshipType } from "./types"
 
-const defaultTagName = "being-cencored"
+const defaultTagName = "being-censored"
 document.addEventListener("DOMContentLoaded", () => {
   customElements.define("censored-style", CensoredStyle)
   customElements.define(defaultTagName, BeingCensored)
@@ -80,12 +80,21 @@ class BeingCensored extends HTMLElement {
     super()
     const shadow: ShadowRoot = this.attachShadow({ mode: "open" })
     const wrapper: HTMLElement = document.createElement("span")
-    const paintSpan: HTMLElement = document.createElement("span")
 
-    wrapper.setAttribute("class", "container")
-    wrapper.innerText = this.getAttribute("censorship-text") ?? ""
-    paintSpan.setAttribute("class", "paint-span")
-    wrapper.appendChild(paintSpan)
+    const attrText = this.getAttribute("censorship-text") ?? ""
+    const splitTexts = toWordArray(attrText)
+    splitTexts.forEach(text => {
+      const containerSpan: HTMLElement = document.createElement("span")
+      const paintSpan: HTMLElement = document.createElement("span")
+
+      containerSpan.setAttribute("class", "container")
+      containerSpan.innerText = text
+
+      paintSpan.setAttribute("class", "paint-span")
+      containerSpan.appendChild(paintSpan)
+      wrapper.appendChild(containerSpan)
+    })
+    wrapper.setAttribute("class", "wrapper")
 
     /*
      * Type option
