@@ -1,5 +1,7 @@
 const path = require("path")
 const HTMLPlugin = require("html-webpack-plugin")
+const StatsPlugin = require("stats-webpack-plugin")
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
 module.exports = {
   entry: "./src/censored-style.ts",
@@ -34,6 +36,10 @@ module.exports = {
         collapseWhitespace: false,
         preserveLineBreaks: true
       }
-    })
+    }),
+    new StatsPlugin("stats.json", {
+      chunkModules: true
+    }),
+    new BundleAnalyzerPlugin()
   ]
 }
