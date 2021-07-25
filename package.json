@@ -21,8 +21,9 @@
     "url": "https://github.com/Kilimanjaro-a2/censored-style-js/issues"
   },
   "scripts": {
-    "start": "webpack serve",
-    "webpack": "webpack",
+    "build": "webpack --config webpack.prod.js",
+    "build:dev": "webpack --config webpack.dev.js",
+    "start": "webpack serve --config webpack.dev.js",
     "lint": "eslint src/* --fix",
     "test": "jest"
   },
