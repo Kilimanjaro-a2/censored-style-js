@@ -1,4 +1,4 @@
-import { replaceText, isTrueAsBoolean } from "../src/string-util"
+import { replaceText, isTrueAsBoolean, toWordArray } from "../src/string-util"
 
 /*
  * replaceText
@@ -19,7 +19,7 @@ test("Replace text with another longer text", () => {
 })
 
 /*
- * isBoolean
+ * isTrueAsBoolean
  */
 test("Is true: true", () => {
   expect(isTrueAsBoolean("True")).toBe(true)
@@ -36,4 +36,14 @@ test("Is true: false", () => {
 
   expect(isTrueAsBoolean("This is absolutely not a boolean value")).toBe(false)
   expect(isTrueAsBoolean("32432423423")).toBe(false)
+})
+
+/*
+ * toWordArray
+ */
+test("toWordArray", () => {
+  expect(toWordArray("This is a text.")).toStrictEqual(["This ", "is ", "a ", "text."])
+  expect(toWordArray("ABCDEFG")).toStrictEqual(["ABCDEFG"])
+  expect(toWordArray(". . . .")).toStrictEqual([". ", ". ", ". ", "."])
+  expect(toWordArray(" This is a text. ")).toStrictEqual([" ", "This ", "is ", "a ", "text. ", ""])
 })
