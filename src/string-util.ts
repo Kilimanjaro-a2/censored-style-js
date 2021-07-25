@@ -33,12 +33,12 @@ export function generateCss (
         validateColor(censorshipColor) ? censorshipColor : "black",
         willHover,
         80,
-        getRandomArbitrary(-1.3, 1.3),
-        getRandomArbitrary(-1, 1)
+        0,
+        getRandomArbitrary(-10, -5)
       )
       break
     case "strikethrough":
-      result = generateMarkerStyle(validateColor(censorshipColor) ? censorshipColor : "black", willHover, 20, 0, 0)
+      result = generateMarkerStyle(validateColor(censorshipColor) ? censorshipColor : "black", willHover, 2, 0, 0)
       break
     case "blur":
       result = generateBlurStyle(willHover)
@@ -86,28 +86,35 @@ function generateMarkerStyle (
       --line-rotation: ${rotationDeg}deg;
       --line-skew: ${skewDeg}deg;
       --color: ${color};
+      --padding-x: 0.2em;
+      --padding-y: 0.1em;
       position: absolute;
       display: inline-block;
       width: 100%;
       height: var(--line-height);
-      top: var(--line-top);
-      left: 0;
-      transform: rotate(var(--line-rotation)) skew(var(--line-skew));
+      top: calc(var(--line-top) - var(--padding-y));
+      left: calc(-1 * var(--padding-x));
+      padding: var(--padding-y) var(--padding-x);
       
       background-color: var(--color);
       box-shadow: 0px 0px 2px 1px var(--color);
-      border-radius: 1px;
+      border-radius: 3px;
 
-      transform: scaleY(1);
+      transform: scaleY(1) rotate(var(--line-rotation)) skew(var(--line-skew));
       transform-origin: bottom;
-      transition: transform 300ms;
+      transition: transform 300ms;      
+    }
+
+    .wrapper .paint-span:nth-child(3) {
+      background-color: red;
+      transform: scaleY(1) rotate(-20deg) skew(-20deg);
     }
 
   `
   const hover: string = willHober
     ? `
     .wrapper:hover .paint-span {
-      transform: scaleY(0);
+      transform: scaleY(0) rotate(0deg) skew(0deg);
     }`
     : ""
 
