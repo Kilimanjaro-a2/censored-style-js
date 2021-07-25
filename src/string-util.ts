@@ -29,35 +29,19 @@ export function generateCss (
   let result = ""
   switch (censorshipType) {
     case "marker":
-      {
-        const color = validateColor(censorshipColor) ? censorshipColor : "black"
-        result = markerTemplate(color, willHover, 80, getRandomArbitrary(-1.3, 1.3), getRandomArbitrary(-1, 1))
-      }
+      result = generateMarkerStyle(
+        validateColor(censorshipColor) ? censorshipColor : "black",
+        willHover,
+        80,
+        getRandomArbitrary(-1.3, 1.3),
+        getRandomArbitrary(-1, 1)
+      )
       break
     case "strikethrough":
-      {
-        const color = validateColor(censorshipColor) ? censorshipColor : "black"
-        result = markerTemplate(color, willHover, 20, 0, 0)
-      }
+      result = generateMarkerStyle(validateColor(censorshipColor) ? censorshipColor : "black", willHover, 20, 0, 0)
       break
     case "blur":
-      {
-        const base = `
-          .wrapper .container {
-            position: relative;
-            padding: 0;
-            margin: 0;
-            filter: blur(2px);
-            transition: all 0.5s 0s ease;
-          }
-          `
-        const hover = willHover
-          ? `.wrapper:hover .container {
-            filter: none;
-          }`
-          : ""
-        result = base + hover
-      }
+      result = generateBlurStyle(willHover)
       break
     case "visible":
       /* FALLTHROUGH */
@@ -72,7 +56,18 @@ export function isTrueAsBoolean (text: string): boolean {
   return regex.test(text)
 }
 
-function markerTemplate (
+export function toWordArray (text: string): string[] {
+  text = sanitize(text)
+  const array = text.split(" ").map(word => word + " ")
+  array[array.length - 1] = array[array.length - 1].slice(0, -1)
+  return array
+}
+
+export function sanitize (text: string): string {
+  return filterXSS(text)
+}
+
+function generateMarkerStyle (
   color: string,
   willHober: boolean = true,
   lineHeightPercentage: number = 80,
@@ -119,17 +114,24 @@ function markerTemplate (
   return base + hover
 }
 
+function generateBlurStyle (willHover: boolean = true) {
+  const base = `
+    .wrapper .container {
+      position: relative;
+      padding: 0;
+      margin: 0;
+      filter: blur(2px);
+      transition: all 0.5s 0s ease;
+    }
+    `
+  const hover = willHover
+    ? `.wrapper:hover .container {
+      filter: none;
+    }`
+    : ""
+  return base + hover
+}
+
 function getRandomArbitrary (min: number, max: number) {
   return Math.random() * (max - min) + min
-}
-
-export function toWordArray (text: string): string[] {
-  text = sanitize(text)
-  const array = text.split(" ").map(word => word + " ")
-  array[array.length - 1] = array[array.length - 1].slice(0, -1)
-  return array
-}
-
-export function sanitize (text: string): string {
-  return filterXSS(text)
 }
