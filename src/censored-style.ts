@@ -49,7 +49,7 @@ class CensoredStyle extends HTMLElement {
         }
       })
       foundElements.forEach(element => {
-        let innerText = sanitize(element.innerHTML)
+        let innerText = element.innerHTML
         if (replaceTextAttribute !== "") {
           innerText = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)
         }
