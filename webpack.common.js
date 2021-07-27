@@ -22,10 +22,7 @@ module.exports = {
   plugins: [
     new HTMLPlugin({
       template: path.join(__dirname, "src/index.html"),
-      minify: {
-        collapseWhitespace: false,
-        preserveLineBreaks: true
-      }
+      minify: false
     })
   ]
 }
