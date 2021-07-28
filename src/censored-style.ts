@@ -1,10 +1,12 @@
 import { replaceText, generateCss, isTrueAsBoolean, toWordArray, sanitize } from "./string-util"
 import { censorshipType } from "./types"
 
-const defaultTagName = "being-censored"
+const wrapperComponentName = "censored-style"
+const censoredComponentName = "being-censored"
+
 document.addEventListener("DOMContentLoaded", () => {
-  customElements.define("censored-style", CensoredStyle)
-  customElements.define(defaultTagName, BeingCensored)
+  customElements.define(wrapperComponentName, CensoredStyle)
+  customElements.define(censoredComponentName, BeingCensored)
 })
 
 class CensoredStyle extends HTMLElement {
@@ -54,7 +56,7 @@ class CensoredStyle extends HTMLElement {
           innerText = replaceText(element.innerHTML, replaceTextAttribute, replaceRepeat)
         }
 
-        const span = document.createElement(defaultTagName)
+        const span = document.createElement(censoredComponentName)
         span.setAttribute("censorship-type", this.getAttribute("censorship-type") ?? "")
         span.setAttribute("censorship-color", this.getAttribute("censorship-color") ?? "")
         span.setAttribute("dissapear-on-hover", this.getAttribute("dissapear-on-hover") ?? "")
