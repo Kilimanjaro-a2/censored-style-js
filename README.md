@@ -8,13 +8,13 @@ This is a script that makes areas marked up with certain tags look as if they ar
 ### Notes 
 This script is intended to change the style, not to really censor and remove strings.
 It only applies styles and does not actually delete information, so censored information can be easily restored.
-**Do not use it to hide sensitive information.**
+**Do not use it for sensitive information.**
 
 ## Demo
 To be added later
 
 ## Requirement
-To be added later
+In order to use this script, the user's browser must support Web Components.
 
 ## Usage
 In order to use scripts, you must first load the script, for example, in the head tag.
@@ -46,9 +46,6 @@ You can set the options by specifying arguments to the censored-style tag.
 </censored-style>
 ```
 ## Install
-To be added later
-
-## Contribution
 To be added later
 
 ## Licence
