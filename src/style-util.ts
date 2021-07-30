@@ -7,6 +7,7 @@ export function generateCss (
   willHover: boolean = true
 ): string {
   let result = ""
+  console.log(censorshipType)
   switch (censorshipType) {
     case "marker":
       result = generateMarkerStyle(
@@ -23,6 +24,9 @@ export function generateCss (
     case "blur":
       result = generateBlurStyle(willHover)
       break
+    case "square":
+      result = generateSquareStyle(validateColor(censorshipColor) ? censorshipColor : "black", willHover)
+      break
     case "visible":
       /* FALLTHROUGH */
     default:
@@ -33,7 +37,7 @@ export function generateCss (
 
 function generateMarkerStyle (
   color: string,
-  willHober: boolean = true,
+  willHover: boolean = true,
   lineHeightPercentage: number = 80,
   rotationDeg: number = 0,
   skewDeg: number = 0
@@ -69,13 +73,8 @@ function generateMarkerStyle (
       transition: transform 300ms;      
     }
 
-    .wrapper .paint-span:nth-child(3) {
-      background-color: red;
-      transform: scaleY(1) rotate(-20deg) skew(-20deg);
-    }
-
   `
-  const hover: string = willHober
+  const hover: string = willHover
     ? `
     .wrapper:hover .paint-span {
       transform: scaleY(0) rotate(0deg) skew(0deg);
@@ -100,6 +99,40 @@ function generateBlurStyle (willHover: boolean = true) {
       filter: none;
     }`
     : ""
+  return base + hover
+}
+
+function generateSquareStyle (color: string, willHover: boolean = true) {
+  const base: string = `
+    .container {
+      position: relative;
+      padding: 0;
+      margin: 0;
+    }
+    .wrapper .paint-span {
+      --color: ${color};
+      position: absolute;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      padding: 0 1px;
+
+      background-color: var(--color);
+
+      transform: scaleY(1) rotate(0deg) skew(0deg);
+      transform-origin: bottom;
+      transition: transform 300ms; 
+    }
+  `
+  const hover: string = willHover
+    ? `
+    .wrapper:hover .paint-span {
+      transform: scaleY(0) rotate(0deg) skew(0deg);
+    }`
+    : ""
+
   return base + hover
 }
 
