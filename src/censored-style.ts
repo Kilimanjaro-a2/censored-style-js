@@ -1,4 +1,5 @@
-import { replaceText, generateCss, isTrueAsBoolean, toWordArray, sanitize } from "./string-util"
+import { replaceText, isTrueAsBoolean, toWordArray, sanitize } from "./string-util"
+import { generateCss } from "./style-util"
 import { censorshipType } from "./types"
 
 const wrapperComponentName = "censored-style"
