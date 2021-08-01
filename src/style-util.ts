@@ -1,5 +1,5 @@
 import validateColor from "validate-color"
-import { censorshipType } from "./types"
+import { censorshipType, skewSet, defaultSkewSet } from "./types"
 
 export function generateCss (
   censorshipType: censorshipType,
@@ -14,12 +14,11 @@ export function generateCss (
         validateColor(censorshipColor) ? censorshipColor : "black",
         willHover,
         80,
-        0,
-        getRandomArbitrary(-10, -5)
+        getRandomSkewSet(-15, 15)
       )
       break
     case "strikethrough":
-      result = generateMarkerStyle(validateColor(censorshipColor) ? censorshipColor : "black", willHover, 2, 0, 0)
+      result = generateMarkerStyle(validateColor(censorshipColor) ? censorshipColor : "black", willHover, 2, defaultSkewSet)
       break
     case "blur":
       result = generateBlurStyle(willHover)
@@ -39,8 +38,7 @@ function generateMarkerStyle (
   color: string,
   willHover: boolean = true,
   lineHeightPercentage: number = 80,
-  rotationDeg: number = 0,
-  skewDeg: number = 0
+  skew: skewSet = defaultSkewSet
 ): string {
   const base: string = `
     .container {
@@ -48,13 +46,13 @@ function generateMarkerStyle (
       padding: 0;
       margin: 0;
     }
-    .wrapper .paint-span {
+    .container .paint-span {
       --line-height: ${lineHeightPercentage}%;
       --line-top: calc((100% - var(--line-height))/2);
-      --line-rotation: ${rotationDeg}deg;
-      --line-skew: ${skewDeg}deg;
+      --line-rotation: 0deg;
+      --line-skew: 0deg;
       --color: ${color};
-      --padding-x: 0.2em;
+      --padding-x: 0.1em;
       --padding-y: 0.1em;
       position: absolute;
       display: inline-block;
@@ -71,6 +69,18 @@ function generateMarkerStyle (
       transform: scaleY(1) rotate(var(--line-rotation)) skew(var(--line-skew));
       transform-origin: bottom;
       transition: transform 300ms;      
+    }
+    .container:nth-child(3) .paint-span {
+      --line-rotation: ${skew.skew3}deg;
+      --line-skew: 10deg;
+    }
+    .container:nth-child(7n) .paint-span {
+      --line-rotation: ${skew.skew5n}deg;
+      --line-skew: 10deg;
+    }
+    .container:nth-child(5n) .paint-span {
+      --line-rotation: ${skew.skew7n}deg;
+      --line-skew: -10deg;
     }
 
   `
@@ -136,6 +146,10 @@ function generateSquareStyle (color: string, willHover: boolean = true) {
   return base + hover
 }
 
-function getRandomArbitrary (min: number, max: number) {
-  return Math.random() * (max - min) + min
+function getRandomSkewSet (min: number, max: number): skewSet {
+  return {
+    skew3: Math.random() * (max - min) + min,
+    skew5n: Math.random() * (max - min) + min,
+    skew7n: Math.random() * (max - min) + min
+  }
 }
