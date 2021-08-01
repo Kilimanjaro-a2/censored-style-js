@@ -1,5 +1,5 @@
 import validateColor from "validate-color"
-import { censorshipType, skewSet, defaultSkewSet } from "./types"
+import { censorshipType, rotationSet, defaultRotationSet } from "./types"
 
 export function generateCss (
   censorshipType: censorshipType,
@@ -7,18 +7,18 @@ export function generateCss (
   willHover: boolean = true
 ): string {
   let result = ""
-  console.log(censorshipType)
   switch (censorshipType) {
     case "marker":
       result = generateMarkerStyle(
         validateColor(censorshipColor) ? censorshipColor : "black",
         willHover,
         80,
-        getRandomSkewSet(-15, 15)
+        -7,
+        getRandomSkewSet(-1.7, 1.7)
       )
       break
     case "strikethrough":
-      result = generateMarkerStyle(validateColor(censorshipColor) ? censorshipColor : "black", willHover, 2, defaultSkewSet)
+      result = generateMarkerStyle(validateColor(censorshipColor) ? censorshipColor : "black", willHover, 2, 0, defaultRotationSet)
       break
     case "blur":
       result = generateBlurStyle(willHover)
@@ -38,7 +38,8 @@ function generateMarkerStyle (
   color: string,
   willHover: boolean = true,
   lineHeightPercentage: number = 80,
-  skew: skewSet = defaultSkewSet
+  skew: number,
+  rotation: rotationSet = defaultRotationSet
 ): string {
   const base: string = `
     .container {
@@ -50,7 +51,7 @@ function generateMarkerStyle (
       --line-height: ${lineHeightPercentage}%;
       --line-top: calc((100% - var(--line-height))/2);
       --line-rotation: 0deg;
-      --line-skew: 0deg;
+      --line-skew: ${skew}deg;
       --color: ${color};
       --padding-x: 0.1em;
       --padding-y: 0.1em;
@@ -70,17 +71,17 @@ function generateMarkerStyle (
       transform-origin: bottom;
       transition: transform 300ms;      
     }
+    .container:nth-child(1) .paint-span {
+      --line-rotation: ${rotation.child1}deg;
+    }
     .container:nth-child(3) .paint-span {
-      --line-rotation: ${skew.skew3}deg;
-      --line-skew: 10deg;
+      --line-rotation: ${rotation.child3}deg;
     }
     .container:nth-child(7n) .paint-span {
-      --line-rotation: ${skew.skew5n}deg;
-      --line-skew: 10deg;
+      --line-rotation: ${rotation.child5n}deg;
     }
     .container:nth-child(5n) .paint-span {
-      --line-rotation: ${skew.skew7n}deg;
-      --line-skew: -10deg;
+      --line-rotation: ${rotation.child7n}deg;
     }
 
   `
@@ -146,10 +147,12 @@ function generateSquareStyle (color: string, willHover: boolean = true) {
   return base + hover
 }
 
-function getRandomSkewSet (min: number, max: number): skewSet {
+function getRandomSkewSet (minNumber: number, maxNumber: number): rotationSet {
+  const random = (min: number, max: number) => Math.random() * (max - min) + min
   return {
-    skew3: Math.random() * (max - min) + min,
-    skew5n: Math.random() * (max - min) + min,
-    skew7n: Math.random() * (max - min) + min
+    child1: random(minNumber, maxNumber),
+    child3: random(minNumber, maxNumber),
+    child5n: random(minNumber, maxNumber),
+    child7n: random(minNumber, maxNumber)
   }
 }
