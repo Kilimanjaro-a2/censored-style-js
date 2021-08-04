@@ -1,4 +1,4 @@
-export type censorshipType = "marker" | "strikethrough" | "blur" | "square" | "visible"
+export type censorshipType = "marker" | "strikethrough" | "blur" | "square" | "caligraphy" | "visible"
 export type rotationSet = {
   child1: number,
   child3: number,

@@ -83,6 +83,18 @@ class BeingCensored extends HTMLElement {
     const shadow: ShadowRoot = this.attachShadow({ mode: "open" })
     const wrapper: HTMLElement = document.createElement("span")
 
+    /*
+     * Type option
+     */
+    let attrType: string = this.getAttribute("censorship-type") ?? this.#defaultType
+    if (attrType === "") {
+      attrType = this.#defaultType
+    }
+    const censorshipType: censorshipType = attrType as censorshipType ?? this.#defaultType
+
+    /*
+     * DOM Creation
+     */
     const attrText = sanitize(this.getAttribute("censorship-text") ?? "")
     const splitTexts = toWordArray(attrText)
     splitTexts.forEach(text => {
@@ -95,17 +107,20 @@ class BeingCensored extends HTMLElement {
       paintSpan.setAttribute("class", "paint-span")
       containerSpan.appendChild(paintSpan)
       wrapper.appendChild(containerSpan)
+
+      if (censorshipType === "caligraphy") {
+        const subPaintSpan1: HTMLElement = document.createElement("span")
+        subPaintSpan1.setAttribute("class", "paint-span-sub1")
+        containerSpan.appendChild(subPaintSpan1)
+        wrapper.appendChild(containerSpan)
+
+        const subPaintSpan2: HTMLElement = document.createElement("span")
+        subPaintSpan2.setAttribute("class", "paint-span-sub2")
+        containerSpan.appendChild(subPaintSpan2)
+        wrapper.appendChild(containerSpan)
+      }
     })
     wrapper.setAttribute("class", "wrapper")
-
-    /*
-     * Type option
-     */
-    let attrType: string = this.getAttribute("censorship-type") ?? this.#defaultType
-    if (attrType === "") {
-      attrType = this.#defaultType
-    }
-    const censorshipType: censorshipType = attrType as censorshipType ?? this.#defaultType
 
     /*
      * Type option
