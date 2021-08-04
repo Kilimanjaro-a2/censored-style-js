@@ -8,14 +8,15 @@
     "Style",
     "Web Components",
     "Censored",
-    "Redacted"
+    "Redacted",
+    "censored-style"
   ],
   "author": "Kilimanjaro-a2",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kilimanjaro-a2/censored-style-js.git"
   },
-  "main": "dist/index.js",
+  "main": "public/censored-style.js",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Kilimanjaro-a2/censored-style-js/issues"
@@ -29,8 +30,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "validate-color": "^2.1.1",
-    "xss": "^1.0.9"
+    "validate-color": "^2.1.1"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.15",

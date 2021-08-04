@@ -11,7 +11,7 @@ It only applies styles and does not actually delete information, so censored inf
 **Do not use it for sensitive information.**
 
 ## Demo
-To be added later
+https://kilimanjaro-a2.github.io/censored-style-js/
 
 ## Requirement
 In order to use this script, the user's browser must support Web Components.
@@ -20,7 +20,7 @@ In order to use this script, the user's browser must support Web Components.
 In order to use scripts, you must first load the script, for example, in the head tag.
 ```html
 <head>
-  <script src="censored-style.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/Kilimanjaro-a2/censored-style-js@gh-pages/censored-style.js"></script>
 </head>
 ```
 
@@ -45,8 +45,6 @@ You can set the options by specifying arguments to the censored-style tag.
   <p>This is a <c>censored text</c>.</p>
 </censored-style>
 ```
-## Install
-To be added later
 
 ## Licence
 MIT License
