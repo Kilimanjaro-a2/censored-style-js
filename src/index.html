@@ -20,6 +20,9 @@
         filter: drop-shadow(0 0 0.75rem gray);
         border-radius: 5px;
       }
+      ul li {
+        padding: 5px 0;
+      }
     </style>
     <script src="censored-style.js"></script>
   </head>
@@ -30,7 +33,7 @@
       >
         <h1>Hello, <c>censored</c>-style.js!</h1>
 
-        <p>censored-style.js is <c>a JavaScript library that allows you to apply a censorship-like style to specific text.</c><br>
+        <p>censored-style.js is a JavaScript library that allows you to apply a censorship-like style to specific text.<br>
   Since it uses Web Components, it can be used with any framework, including React, Vue, and Svelte.<br>
   Of course, it can also be used with Vanilla JS.</p>
       </censored-style>
@@ -40,25 +43,31 @@
       <ul>
         <li>
           <censored-style censorship-type="marker">
-            This is the default <censored">black marker style</censored>.
+            This is a default black marker style: <censored>This is a censored text!</censored>
           </censored-style>
         </li>
 
         <li>
           <censored-style censorship-type="marker" censorship-color="#808080">
-            There are also styles that allow you to <censored>change the color</censored>.
+            This is a color changed version:  <censored>This is a censored text!</censored>.
           </censored-style>
         </li>
 
         <li>
           <censored-style censorship-type="blur">
-            This is a <censored>blur style</censored>.
+            This is a blur style: <censored>This is a censored text!</censored>.
           </censored-style>
         </li>
 
         <li>
           <censored-style censorship-type="strikethrough">
-            This is a <censored>strikethrough style</censored>.
+            This is a strikethrough style: <censored>This is a censored text!</censored>.
+          </censored-style>
+        </li>
+
+        <li>
+          <censored-style censorship-type="caligraphy">
+            This is a caligraphy style: <censored>This is a censored text!</censored>.
           </censored-style>
         </li>
       </ul>
@@ -72,12 +81,12 @@
         </li>
 
         <li>
-          The functionality of CensoredStyle.js is encapsulated in Web Components, so it does not affect existing HTML elements that are not enclosed in &lt;censored-style&gt; tags like
+          The functionality of censored-style.js is encapsulated in Web Components, so it does not affect existing HTML elements that are not enclosed in &lt;censored-style&gt; tags like
           <censored>this </censored><span class="censored">text</span>.
         </li>
 
         <li>
-          It is also possible to replace the part you want to censor with any string of text. This is a <censored>censored</censored> text.
+          It is also possible to replace the part you want to censor with any string of text.
           <censored-style
             censorship-type="visible"
             replace-text="*"
@@ -96,19 +105,10 @@
 
         <li>
           <censored-style censorship-tag="c" dissapear-on-hover="false">
-            You can set whether or not to release the <c>censored</c> state on hover
+            You can set whether or not to release the censored state on hover like this: <c>This is a censored text!</c>
           </censored-style>
         </li>
       </ul>
-
-
-      <censored-style
-        censorship-tag="c"
-        censorship-type="caligraphy"
-        dissapear-on-hover="false"
-      >
-        You can set <c>whether or not to release the censored state on hover</c>
-      </censored-style>
     </div>
   </body>
 </html>
