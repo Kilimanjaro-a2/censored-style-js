@@ -158,13 +158,16 @@ function generateCaligraphyStyle (willHover: boolean = true): string {
       height: var(--line-height);
       top: calc(var(--line-top) - var(--line-top-offset));
       left: 0;
-      transform: skew(-20deg);
       
       background-color: var(--color);
       box-shadow: 0px 0px 2px 1px var(--color);
       border-radius: 3px;
       padding: 0 0.7em;
       border-radius: var(--border-radius);
+
+      transform: scaleY(1) rotate(0deg) skew(-20deg);
+      transform-origin: bottom;
+      transition: transform 300ms; 
   `
 
   const base: string = `
@@ -254,7 +257,9 @@ function generateCaligraphyStyle (willHover: boolean = true): string {
   `
   const hover: string = willHover
     ? `
-    .wrapper:hover .paint-span {
+    .wrapper:hover .paint-span,
+    .wrapper:hover .paint-span-sub1,
+    .wrapper:hover .paint-span-sub2 {
       transform: scaleY(0) rotate(0deg) skew(0deg);
     }`
     : ""
