@@ -30,7 +30,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "validate-color": "^2.1.1"
+    "validate-color": "^2.2.1"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.15",
